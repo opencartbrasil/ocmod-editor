@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+  <name>OCMod Editor</name>
+  <code>ocmod-editor</code>
+  <version>1.0</version>
+  <author>Manoel Vidal</author>
+  <link>http://www.opencartbrasil.com.br</link>
+  <file path="admin/controller/extension/modification.php">
+    <operation>
+      <search>
+	    <![CDATA[$data['modifications'][] = array(]]>
+      </search>
+      <add position="after">
+        <![CDATA[
+				'edit'            => $this->url->link('extension/modification_editor', 'token=' . $this->session->data['token'] . '&modification_id=' . $result['modification_id'], 'SSL'),
+				'download'        => $this->url->link('extension/modification_editor/download', 'token=' . $this->session->data['token'] . '&modification_id=' . $result['modification_id'], 'SSL'),
+		]]>
+      </add>
+    </operation>
+    <operation>
+      <search>
+	    <![CDATA[$data['tab_log'] = $this->language->get('tab_log');]]>
+      </search>
+      <add position="after">
+        <![CDATA[
+		$this->load->language('extension/modification_editor');
+		$data['button_edit'] = $this->language->get('button_edit');
+		$data['button_download'] = $this->language->get('button_download');
+		]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="admin/view/template/extension/modification.tpl">
+    <operation>
+      <search>
+	    <![CDATA[<?php if (!$modification['enabled']) { ?>]]>
+      </search>
+      <add position="before">
+        <![CDATA[
+                        <a href="<?php echo $modification['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+						<a href="<?php echo $modification['download']; ?>" data-toggle="tooltip" title="<?php echo $button_download; ?>" class="btn btn-success"><i class="fa fa-cloud-download"></i></a>
+		]]>
+      </add>
+    </operation>
+  </file>
+</modification>
