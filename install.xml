@@ -2,7 +2,7 @@
 <modification>
   <name>OCMod Editor</name>
   <code>ocmod-editor</code>
-  <version>1.0</version>
+  <version>1.1</version>
   <author>Manoel Vidal</author>
   <link>http://www.opencartbrasil.com.br</link>
   <file path="admin/controller/extension/modification.php">
