@@ -3,6 +3,7 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="alert alert-danger" id="warning" role="alert"></div>
+      
 	  <div class="pull-right">
         <button type="button" id="button-save" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary" data-loading-text="<?php echo $text_loading; ?>"><i class="fa fa-save"></i></button>
         <a href="<?php echo $return; ?>" data-toggle="tooltip" title="<?php echo $button_return; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a>		
@@ -13,6 +14,7 @@
         <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
         <?php } ?>
       </ul>
+      <div class="alert alert alert-success" id="success" role="alert"></div>
     </div>
   </div>
   <div class="container-fluid">
@@ -35,7 +37,9 @@
   </div>
 </div>
 <script type="text/javascript"><!--
+	
 	$('#warning').hide();
+	$('#success').hide();
 
 	var path = "view/javascript/ace";
 	var editorconfig = ace.require("ace/config");
@@ -46,6 +50,7 @@
 
 	$('#button-save').on('click', function() {
 		$('#warning').hide();
+		$('#success').hide();
 		var id       = $('input[name="modification_id"]').val();
 		var xml_code = xml_editor.getValue();
 		$.ajax({
@@ -64,7 +69,10 @@
 				if (json['error']) {
 					$('#warning').html(json['error']).show();
 				} else {
-					alert(json['success']);
+					//alert(json['success']);
+					$('#success').load('index.php?route=extension/modification/refresh&modification_editor=1&token=<?php echo $token; ?>');
+					$('#success').show();
+
 				}
 			},			
 			error: function(xhr, ajaxOptions, thrownError) {
@@ -72,5 +80,6 @@
 			}
 		});
 	});
+
 //--></script> 
 <?php echo $footer; ?>
