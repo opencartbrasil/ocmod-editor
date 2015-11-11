@@ -29,6 +29,21 @@
 		]]>
       </add>
     </operation>
+    <operation>
+      <search index="1">
+      <![CDATA[$this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'] . $url, 'SSL'));]]>
+      </search>
+      <add position="replace">
+        <![CDATA[
+        if (isset($this->request->get['modification_editor'])) {        
+          echo $this->session->data['success'];
+          exit;
+        } else {
+          $this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'] . $url, 'SSL'));
+        }
+    ]]>
+      </add>
+    </operation>
   </file>
 
   <file path="admin/view/template/extension/modification.tpl">
