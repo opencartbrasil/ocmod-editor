@@ -47,6 +47,10 @@ class ControllerExtensionModificationEditor extends Controller {
 			$data['entry_xml_code'] = $this->language->get('entry_xml_code');
 
 			$data['text_loading'] = $this->language->get('text_loading');
+			$data['text_erasing'] = $this->language->get('text_erasing');
+
+			$data['button_clear_data']  = $this->language->get('button_clear_data');
+			$data['button_clear_image'] = $this->language->get('button_clear_image');
 
 			$data['button_save'] = $this->language->get('button_save');
 			$data['button_return'] = $this->language->get('button_return');
@@ -161,33 +165,30 @@ class ControllerExtensionModificationEditor extends Controller {
 		}
 
 		$this->load->model('extension/modification_editor');
-		$modification_info = $this->model_extension_modification_editor->getModification($modification_id);
+		$modification = $this->model_extension_modification_editor->getModification($modification_id);
 
-		if ($modification_info) {
-			$dom = new DOMDocument('1.0', 'UTF-8');
-
-			$dom->loadXml($modification_info['xml']);
-			$dom->formatOutput = true;
-
-			$filename = $modification_info['code'] . '.ocmod.xml';
+		if ($modification) {
+			$filename = $modification['code'] . '.ocmod.xml';
 			
-			$content = html_entity_decode($dom->saveXML());
-
 			if (!headers_sent()) {
-				header('Content-Type: application/octet-stream');
-				header('Content-Disposition: attachment; filename="' . $filename . '"');
-				header('Expires: 0');
-				header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-				header('Pragma: public');
-				header('Content-Length: ' . filesize($content));
+				if (!empty($modification['xml'])) {
+					header('Content-Type: application/octet-stream');
+					header('Content-Description: File Transfer');
+					header('Content-Disposition: attachment; filename="' . $filename . '"');
+					header('Content-Transfer-Encoding: binary');
+					header('Expires: 0');
+					header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+					header('Pragma: public');
+					header('Content-Length: ' . utf8_strlen($filename));
 
-				if (ob_get_level()) {
-					ob_end_clean();
+					echo $modification['xml'];
+
+					exit();
+				} else {
+					exit($this->language->get('error_file'));
 				}
-
-				echo $content;
-
-				exit();
+			} else {
+				exit($this->language->get('error_headers'));
 			}
 		} else {
 			$this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'], 'SSL'));
@@ -199,7 +200,11 @@ class ControllerExtensionModificationEditor extends Controller {
 			$this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'], 'SSL'));
 		}
 
-		$this->load->model('extension/modification');
+		$maintenance = $this->config->get('config_maintenance');
+
+		$this->load->model('setting/setting');
+
+		$this->model_setting_setting->editSettingValue('config', 'config_maintenance', true);
 
 		$log = array();
 
@@ -230,7 +235,7 @@ class ControllerExtensionModificationEditor extends Controller {
 					rmdir($file);
 				}
 			}
-		}	
+		}
 
 		$xml = array();
 
@@ -244,6 +249,7 @@ class ControllerExtensionModificationEditor extends Controller {
 			}
 		}
 
+		$this->load->model('extension/modification');
 		$results = $this->model_extension_modification->getModifications();
 
 		foreach ($results as $result) {
@@ -259,210 +265,221 @@ class ControllerExtensionModificationEditor extends Controller {
 			$dom->preserveWhiteSpace = false;
 			$dom->loadXml($xml);
 
+			$log[] = 'MOD: ' . $dom->getElementsByTagName('name')->item(0)->textContent;
+
 			$recovery = array();
 
 			if (isset($modification)) {
 				$recovery = $modification;
 			}
 
-			$log[] = 'MOD: ' . $dom->getElementsByTagName('name')->item(0)->textContent;
-
 			$files = $dom->getElementsByTagName('modification')->item(0)->getElementsByTagName('file');
 
 			foreach ($files as $file) {
 				$operations = $file->getElementsByTagName('operation');
 
-				$path = '';
+				$files = explode('|', $file->getAttribute('path'));
 
-				if (substr($file->getAttribute('path'), 0, 7) == 'catalog') {
-					$path = DIR_CATALOG . str_replace('../', '', substr($file->getAttribute('path'), 8));
-				}
+				foreach ($files as $file) {
+					$path = '';
 
-				if (substr($file->getAttribute('path'), 0, 5) == 'admin') {
-					$path = DIR_APPLICATION . str_replace('../', '', substr($file->getAttribute('path'), 6));
-				}
+					if (substr($file, 0, 7) == 'catalog') {
+						$path = DIR_CATALOG . str_replace('../', '', substr($file, 8));
+					}
 
-				if (substr($file->getAttribute('path'), 0, 6) == 'system') {
-					$path = DIR_SYSTEM . str_replace('../', '', substr($file->getAttribute('path'), 7));
-				}
+					if (substr($file, 0, 5) == 'admin') {
+						$path = DIR_APPLICATION . str_replace('../', '', substr($file, 6));
+					}
 
-				if ($path) {
-					$files = glob($path, GLOB_BRACE);
+					if (substr($file, 0, 6) == 'system') {
+						$path = DIR_SYSTEM . str_replace('../', '', substr($file, 7));
+					}
 
-					if ($files) {
-						foreach ($files as $file) {
-							if (substr($file, 0, strlen(DIR_CATALOG)) == DIR_CATALOG) {
-								$key = 'catalog/' . substr($file, strlen(DIR_CATALOG));
-							}
+					if ($path) {
+						$files = glob($path, GLOB_BRACE);
 
-							if (substr($file, 0, strlen(DIR_APPLICATION)) == DIR_APPLICATION) {
-								$key = 'admin/' . substr($file, strlen(DIR_APPLICATION));
-							}
+						if ($files) {
+							foreach ($files as $file) {
+								if (substr($file, 0, strlen(DIR_CATALOG)) == DIR_CATALOG) {
+									$key = 'catalog/' . substr($file, strlen(DIR_CATALOG));
+								}
 
-							if (substr($file, 0, strlen(DIR_SYSTEM)) == DIR_SYSTEM) {
-								$key = 'system/' . substr($file, strlen(DIR_SYSTEM));
-							}
+								if (substr($file, 0, strlen(DIR_APPLICATION)) == DIR_APPLICATION) {
+									$key = 'admin/' . substr($file, strlen(DIR_APPLICATION));
+								}
 
-							if (!isset($modification[$key])) {
-								$content = file_get_contents($file);
+								if (substr($file, 0, strlen(DIR_SYSTEM)) == DIR_SYSTEM) {
+									$key = 'system/' . substr($file, strlen(DIR_SYSTEM));
+								}
 
-								$modification[$key] = preg_replace('~\r?\n~', "\n", $content);
-								$original[$key] = preg_replace('~\r?\n~', "\n", $content);
+								if (!isset($modification[$key])) {
+									$content = file_get_contents($file);
 
-								$log[] = 'FILE: ' . $key;
-							}
+									$modification[$key] = preg_replace('~\r?\n~', "\n", $content);
+									$original[$key] = preg_replace('~\r?\n~', "\n", $content);
 
-							foreach ($operations as $operation) {
-								$error = $operation->getAttribute('error');
+									$log[] = 'FILE: ' . $key;
+								}
 
-								$ignoreif = $operation->getElementsByTagName('ignoreif')->item(0);
+								foreach ($operations as $operation) {
+									$error = $operation->getAttribute('error');
 
-								if ($ignoreif) {
-									if ($ignoreif->getAttribute('regex') != 'true') {
-										if (strpos($modification[$key], $ignoreif->textContent) !== false) {
-											continue;
-										}												
+									$ignoreif = $operation->getElementsByTagName('ignoreif')->item(0);
+
+									if ($ignoreif) {
+										if ($ignoreif->getAttribute('regex') != 'true') {
+											if (strpos($modification[$key], $ignoreif->textContent) !== false) {
+												continue;
+											}
+										} else {
+											if (preg_match($ignoreif->textContent, $modification[$key])) {
+												continue;
+											}
+										}
+									}
+
+									$status = false;
+
+									if ($operation->getElementsByTagName('search')->item(0)->getAttribute('regex') != 'true') {
+										$search = $operation->getElementsByTagName('search')->item(0)->textContent;
+										$trim = $operation->getElementsByTagName('search')->item(0)->getAttribute('trim');
+										$index = $operation->getElementsByTagName('search')->item(0)->getAttribute('index');
+
+										if (!$trim || $trim == 'true') {
+											$search = trim($search);
+										}
+
+										$add = $operation->getElementsByTagName('add')->item(0)->textContent;
+										$trim = $operation->getElementsByTagName('add')->item(0)->getAttribute('trim');
+										$position = $operation->getElementsByTagName('add')->item(0)->getAttribute('position');
+										$offset = $operation->getElementsByTagName('add')->item(0)->getAttribute('offset');
+
+										if ($offset == '') {
+											$offset = 0;
+										}
+
+										if ($trim == 'true') {
+											$add = trim($add);
+										}
+
+										$log[] = 'CODE: ' . $search;
+
+										if ($index !== '') {
+											$indexes = explode(',', $index);
+										} else {
+											$indexes = array();
+										}
+
+										$i = 0;
+
+										$lines = explode("\n", $modification[$key]);
+
+										for ($line_id = 0; $line_id < count($lines); $line_id++) {
+											$line = $lines[$line_id];
+
+											$match = false;
+
+											if (stripos($line, $search) !== false) {
+												if (!$indexes) {
+													$match = true;
+												} elseif (in_array($i, $indexes)) {
+													$match = true;
+												}
+
+												$i++;
+											}
+
+											if ($match) {
+												switch ($position) {
+													default:
+													case 'replace':
+														$new_lines = explode("\n", $add);
+
+														if ($offset < 0) {
+															array_splice($lines, $line_id + $offset, abs($offset) + 1, array(str_replace($search, $add, $line)));
+
+															$line_id -= $offset;
+														} else {
+															array_splice($lines, $line_id, $offset + 1, array(str_replace($search, $add, $line)));
+														}
+
+														break;
+													case 'before':
+														$new_lines = explode("\n", $add);
+
+														array_splice($lines, $line_id - $offset, 0, $new_lines);
+
+														$line_id += count($new_lines);
+														break;
+													case 'after':
+														$new_lines = explode("\n", $add);
+
+														array_splice($lines, ($line_id + 1) + $offset, 0, $new_lines);
+
+														$line_id += count($new_lines);
+														break;
+												}
+
+												$log[] = 'LINE: ' . $line_id;
+
+												$status = true;
+											}
+										}
+
+										$modification[$key] = implode("\n", $lines);
 									} else {
-										if (preg_match($ignoreif->textContent, $modification[$key])) {
-											continue;
+										$search = trim($operation->getElementsByTagName('search')->item(0)->textContent);
+										$limit = $operation->getElementsByTagName('search')->item(0)->getAttribute('limit');
+										$replace = trim($operation->getElementsByTagName('add')->item(0)->textContent);
+
+										if (!$limit) {
+											$limit = -1;
+										}
+
+										$match = array();
+
+										preg_match_all($search, $modification[$key], $match, PREG_OFFSET_CAPTURE);
+
+										if ($limit > 0) {
+											$match[0] = array_slice($match[0], 0, $limit);
+										}
+
+										if ($match[0]) {
+											$log[] = 'REGEX: ' . $search;
+
+											for ($i = 0; $i < count($match[0]); $i++) {
+												$log[] = 'LINE: ' . (substr_count(substr($modification[$key], 0, $match[0][$i][1]), "\n") + 1);
+											}
+
+											$status = true;
+										}
+
+										$modification[$key] = preg_replace($search, $replace, $modification[$key], $limit);
+									}
+
+									if (!$status) {
+										$log[] = 'NOT FOUND!';
+
+										if ($error == 'skip') {
+											break;
+										}
+
+										if ($error == 'abort') {
+											$modification = $recovery;
+
+											$log[] = 'ABORTING!';
+
+											break 5;
 										}
 									}
 								}
-
-								$status = false;
-
-								if ($operation->getElementsByTagName('search')->item(0)->getAttribute('regex') != 'true') {
-									$search = $operation->getElementsByTagName('search')->item(0)->textContent;
-									$trim = $operation->getElementsByTagName('search')->item(0)->getAttribute('trim');
-									$index = $operation->getElementsByTagName('search')->item(0)->getAttribute('index');
-
-									if (!$trim || $trim == 'true') {
-										$search = trim($search);
-									}
-
-									$add = $operation->getElementsByTagName('add')->item(0)->textContent;
-									$trim = $operation->getElementsByTagName('add')->item(0)->getAttribute('trim');
-									$position = $operation->getElementsByTagName('add')->item(0)->getAttribute('position');
-									$offset = $operation->getElementsByTagName('add')->item(0)->getAttribute('offset');										
-
-									if ($offset == '') {
-										$offset = 0;
-									}
-
-									if ($trim == 'true') {
-										$add = trim($add);
-									}
-
-									$log[] = 'CODE: ' . $search;
-
-									if ($index !== '') {
-										$indexes = explode(',', $index);
-									} else {
-										$indexes = array();
-									}
-
-									$i = 0;
-
-									$lines = explode("\n", $modification[$key]);
-
-									for ($line_id = 0; $line_id < count($lines); $line_id++) {
-										$line = $lines[$line_id];
-
-										$match = false;
-
-										if (stripos($line, $search) !== false) {
-											if (!$indexes) {
-												$match = true;
-											} elseif (in_array($i, $indexes)) {
-												$match = true;
-											}
-
-											$i++;
-										}
-
-										if ($match) {
-											switch ($position) {
-												default:
-												case 'replace':
-													if ($offset < 0) {
-														array_splice($lines, $line_id + $offset, abs($offset) + 1, array(str_replace($search, $add, $line)));
-
-														$line_id -= $offset;
-													} else {
-														array_splice($lines, $line_id, $offset + 1, array(str_replace($search, $add, $line)));
-													}
-													break;
-												case 'before':
-													$new_lines = explode("\n", $add);
-
-													array_splice($lines, $line_id - $offset, 0, $new_lines);
-
-													$line_id += count($new_lines);
-													break;
-												case 'after':
-													array_splice($lines, ($line_id + 1) + $offset, 0, explode("\n", $add));
-													break;
-											}
-
-											$log[] = 'LINE: ' . $line_id;
-
-											$status = true;										
-										}
-									}
-
-									$modification[$key] = implode("\n", $lines);
-								} else {									
-									$search = $operation->getElementsByTagName('search')->item(0)->textContent;
-									$limit = $operation->getElementsByTagName('search')->item(0)->getAttribute('limit');
-									$replace = $operation->getElementsByTagName('add')->item(0)->textContent;
-
-									if (!$limit) {
-										$limit = -1;
-									}
-
-									$match = array();
-
-									preg_match_all($search, $modification[$key], $match, PREG_OFFSET_CAPTURE);
-
-									if ($limit > 0) {
-										$match[0] = array_slice($match[0], 0, $limit);
-									}
-
-									if ($match[0]) {
-										$log[] = 'REGEX: ' . $search;
-
-										for ($i = 0; $i < count($match[0]); $i++) {
-											$log[] = 'LINE: ' . (substr_count(substr($modification[$key], 0, $match[0][$i][1]), "\n") + 1);
-										}
-										
-										$status = true;
-									}
-
-									$modification[$key] = preg_replace($search, $replace, $modification[$key], $limit);
-								}
-								
-								if (!$status) {
-									$log[] = 'NOT FOUND!';
-
-									if ($error == 'skip') {
-										break;
-									}
-									
-									if ($error == 'abort') {
-										$modification = $recovery;
-										
-										$log[] = 'ABORTING!';
-									
-										break 4;
-									}
-								}									
 							}
 						}
 					}
 				}
 			}
-			
-			$log[] = '----------------------------------------------------------------';				
+
+			$log[] = '----------------------------------------------------------------';
 		}
 
 		$ocmod = new Log('ocmod.log');
@@ -489,5 +506,51 @@ class ControllerExtensionModificationEditor extends Controller {
 				fclose($handle);
 			}
 		}
+
+		$this->model_setting_setting->editSettingValue('config', 'config_maintenance', $maintenance);
+	}
+
+	private function delTree($dir) {
+		$files = array_diff(scandir($dir), array('.','..'));
+		foreach ($files as $file) {
+			 (is_dir("$dir/$file")) ? $this->delTree("$dir/$file") : @unlink("$dir/$file");
+		}
+		return @rmdir($dir);
+	}
+
+	public function clearCacheData() {
+		if (!$this->user->hasPermission('modify', 'extension/modification_editor')) {
+			$this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'], 'SSL'));
+		}
+
+		$files = glob(DIR_CACHE . 'cache.*');
+		if ($files) {
+			foreach ($files as $file) {
+				if (file_exists($file)) {
+					@unlink($file);
+				}
+			}
+		}
+
+		$this->load->language('extension/modification_editor');
+		$json['success'] = $this->language->get('text_clear_data');
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
+	public function clearCacheImage() {
+		if (!$this->user->hasPermission('modify', 'extension/modification_editor')) {
+			$this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'], 'SSL'));
+		}
+
+		$this->delTree(DIR_IMAGE . 'cache/');
+		@mkdir(DIR_IMAGE . 'cache/');
+
+		$this->load->language('extension/modification_editor');
+		$json['success'] = $this->language->get('text_clear_image');
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
 	}
 }
