@@ -15,13 +15,17 @@ Caso deseje doar um valor para contribuir com este trabalho continuo e sempre gr
  3. Na página do instalador, clique no botão Upload e selecione o arquivo 'ocmod-editor.ocmod.zip' (que você baixou deste repositório), e aguarde a conclusão da instalação automática.
  5. Após a instalação, acesse o menu Extensions->Modifications (Extensões->Modificações) e clique no botão Refresh (Atualizar), para que a modificação instalada seja incrementada na loja, lembrando que não é o botão "Atualizar" do navegador, e sim o botão "Atualizar" na cor azul ao lado do botão laranja e vermelho na tela do próprio OpenCart.
 
-### Desinstalar
-
-Para desinstalar a modificação, na administração da loja, acesse o menu Extensions->Modifications (Extensões->Modificações) e selecione a modificação com o nome 'OCMod Editor', depois clique no botão Delete (Excluir), e no botão Refresh (Atualizar).
-
 ### Utilização
 
 Tanto a edição quanto o download do arquivo XML para OCMod são feitos através do menu Extensions->Modifications (Extensões->Modificações), onde devem aparecer após a correta instalação da modificação, os botões "Editar" e "Download".
+
+### Desinstalação
+
+Para desinstalar a modificação, na administração da loja, acesse o menu Extensions->Modifications (Extensões->Modificações) e selecione a modificação com o nome 'OCMod Editor', depois clique no botão Delete (Excluir), e no botão Refresh (Atualizar).
+
+### Atualização
+
+Acesse a administração da loja e execute o procedimento de Desinstalação, depois execute o procedimento de Instalação.
 
 ### Dúvidas
 
