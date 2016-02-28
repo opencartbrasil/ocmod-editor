@@ -124,11 +124,13 @@ class ControllerExtensionModificationEditor extends Controller {
 					}
 
 					$modification_data = array(
-						'name'            => $name,
-						'author'          => $author,
-						'version'         => $version,
-						'link'            => $link,
-						'xml'             => $xml
+						'name'    => $name,
+						'code'    => $code,
+						'author'  => $author,
+						'version' => $version,
+						'link'    => $link,
+						'xml'     => $xml,
+						'status'  => 1
 					);
 
 					if (isset($this->request->post['modification_id'])) {
