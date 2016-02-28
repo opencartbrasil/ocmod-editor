@@ -141,15 +141,16 @@ class ControllerExtensionModificationEditor extends Controller {
 
 							if ($modification_info) {
 								$this->model_extension_modification_editor->editModification($modification_id, $modification_data);
+								$json['success'] = $this->language->get('text_success_edit');
 							} else {
 								$json['error'] = $this->language->get('error_modification');
 							}
 						} else {
 							$this->model_extension_modification_editor->addModification($modification_data);
+							$json['success'] = $this->language->get('text_success_add');
 						}
 
 						if (!$json) {
-							$json['success'] = $this->language->get('text_success');
 							$this->refresh();
 						}
 					} else {
