@@ -98,6 +98,14 @@ class ControllerExtensionModificationEditor extends Controller {
 					} else {
 						$name = '';
 					}
+
+					$code = $dom->getElementsByTagName('code')->item(0);
+
+					if ($code) {
+						$code = $code->nodeValue;
+					} else {
+						$json['error'] = $this->language->get('error_code');
+					}
 					
 					$author = $dom->getElementsByTagName('author')->item(0);
 
@@ -148,8 +156,15 @@ class ControllerExtensionModificationEditor extends Controller {
 								$json['error'] = $this->language->get('error_modification');
 							}
 						} else {
-							$this->model_extension_modification_editor->addModification($modification_data);
-							$json['success'] = $this->language->get('text_success_add');
+							$this->load->model('extension/modification');
+							$modification_info = $this->model_extension_modification->getModificationByCode($code);
+
+							if ($modification_info) {
+								$json['error'] = sprintf($this->language->get('error_exists'), $modification_info['name']);
+							} else {
+								$this->model_extension_modification_editor->addModification($modification_data);
+								$json['success'] = $this->language->get('text_success_add');
+							}
 						}
 
 						if (!$json) {
