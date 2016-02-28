@@ -134,8 +134,9 @@ class ControllerExtensionModificationEditor extends Controller {
 					if (isset($this->request->post['modification_id'])) {
 						$modification_id = $this->request->post['modification_id'];
 
+						$this->load->model('extension/modification_editor');
+
 						if ($modification_id > 0) {
-							$this->load->model('extension/modification_editor');
 							$modification_info = $this->model_extension_modification_editor->getModification($modification_id);
 
 							if ($modification_info) {
