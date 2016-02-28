@@ -26,6 +26,8 @@ $_['button_return']      = 'Return modifications';
 
 // Error
 $_['error_permission']   = 'Warning: You do not have permission to modify Modifications!';
+$_['error_code']         = 'Modification requires a unique ID code!';
+$_['error_exists']       = 'Modification %s is using the same ID code!';
 $_['error_modification'] = 'Modification Id is not valid!';
 $_['error_file']         = 'XML File could not be found!';
 $_['error_headers']      = 'Error: Headers already sent out!';
