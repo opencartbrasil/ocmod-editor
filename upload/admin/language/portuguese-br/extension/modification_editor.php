@@ -25,7 +25,9 @@ $_['button_save']        = 'Salvar modificação';
 $_['button_return']      = 'Voltar para modificações';
 
 // Error
-$_['error_permission']   = 'Atenção: Você não possui permissão para editar as Modificações!';
-$_['error_modification'] = 'O Id da modificação não é válido!';
+$_['error_permission']   = 'Atenção: Você não possui permissão para inserir ou editar as Modificações!';
+$_['error_code']         = 'Você não definiu um CODE no XML!';
+$_['error_exists']       = 'O CODE utilizado já está em uso pela extensão %s!';
+$_['error_modification'] = 'O ID da modificação não é válido!';
 $_['error_file']         = 'O arquivo xml não pode ser encontrado!';
 $_['error_headers']      = 'Erro: Os cabeçalhos já foram enviados!';
