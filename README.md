@@ -1,8 +1,8 @@
 ### Resumo
 
-Esta modificação foi desenvolvida no formato OCMod, e incrementa a possibilidade de editar e fazer download dos arquivos XML no formato OCMod através da administração do próprio OpenCart.
+Esta modificação foi desenvolvida parcialmente no formato OCMod, pois acompanha arquivos extras que não alteram nenhum arquivo de core do OpenCart.
 
-Uma das grandes vantagens desta modificação é permitir que, a edição dos XML no formato OCMod sejam feita através da administração da loja em um editor online, permitindo assim que os testes com as modificações sejam mais produtivos. Após as modificações é possível fazer o download do arquivo XML para OCMod com um clique. Além de ser possível limpar o cache de imagens e dados na tela de edição do arquivo XML. 
+O objetivo desta modificação é permitir a criação e edição de XML no formato OCMod através da administração da loja utilizando um editor online, o que torna o processo de modifciação mais produtivo. Também é possível fazer o download do arquivo XML no formato OCMod, e limpar o cache de imagens assim como o cache de dados.
 
 Caso deseje doar um valor para contribuir com este trabalho continuo e sempre gratuito, clique no botão abaixo:
 
