@@ -3,7 +3,8 @@
 $_['heading_title']      = 'Editor de modificações';
 
 // Text
-$_['text_success']       = 'Modificação alterada com sucesso!';
+$_['text_success_edit']  = 'Modificação alterada com sucesso!';
+$_['text_success_add']   = 'Modificação incluída com sucesso!';
 $_['text_clear_data']    = 'O cache de arquivos do banco de dados foi apagado!';
 $_['text_clear_image']   = 'O cache de imagens foi apagado!';
 $_['text_loading']       = 'Salvando...';
