@@ -97,7 +97,7 @@
 	$('#button-save').on('click', function() {
 		$('#warning').hide();
 		$('#success').hide();
-		var id       = $('input[name="modification_id"]').val();
+		var id = $('input[name="modification_id"]').val();
 		var xml_code = xml_editor.getValue();
 		$.ajax({
 			url: 'index.php?route=extension/modification_editor/save&token=<?php echo $token; ?>',
@@ -117,6 +117,7 @@
 				} else {
 					$('#success').html(json['success']);
 					$('#success').show();
+					if (id == 0) { location.href = 'index.php?route=extension/modification&token=<?php echo $token; ?>'; }
 				}
 			},			
 			error: function(xhr, ajaxOptions, thrownError) {
