@@ -2,10 +2,18 @@
 <modification>
   <name>OCMod Editor</name>
   <code>ocmod-editor</code>
-  <version>1.2</version>
+  <version>1.3</version>
   <author>OpenCart Brasil</author>
   <link>http://www.opencartbrasil.com.br</link>
   <file path="admin/controller/extension/modification.php">
+    <operation>
+      <search>
+	    <![CDATA[$data['refresh'] = $this->url->link('extension/modification/refresh', 'token=' . $this->session->data['token'] . $url, 'SSL');]]>
+      </search>
+      <add position="before">
+        <![CDATA[$data['new'] = $this->url->link('extension/modification_editor', 'token=' . $this->session->data['token'] . $url, 'SSL');]]>
+      </add>
+    </operation>
     <operation>
       <search>
 	    <![CDATA[$data['modifications'][] = array(]]>
@@ -24,6 +32,7 @@
       <add position="after">
         <![CDATA[
 		$this->load->language('extension/modification_editor');
+		$data['button_new'] = $this->language->get('button_new');
 		$data['button_edit'] = $this->language->get('button_edit');
 		$data['button_download'] = $this->language->get('button_download');
 		]]>
@@ -47,6 +56,14 @@
   </file>
 
   <file path="admin/view/template/extension/modification.tpl">
+    <operation>
+      <search>
+	    <![CDATA[<div class="pull-right">]]>
+      </search>
+      <add position="after">
+        <![CDATA[<a href="<?php echo $new; ?>" data-toggle="tooltip" title="<?php echo $button_new; ?>" class="btn btn-primary"><i class="fa fa-plus"></i></a>]]>
+      </add>
+    </operation>
     <operation>
       <search>
 	    <![CDATA[<?php if (!$modification['enabled']) { ?>]]>
