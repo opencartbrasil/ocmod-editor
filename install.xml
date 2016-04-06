@@ -8,10 +8,10 @@
   <file path="admin/controller/extension/modification.php">
     <operation>
       <search>
-	    <![CDATA[$data['refresh'] = $this->url->link('extension/modification/refresh', 'token=' . $this->session->data['token'] . $url, 'SSL');]]>
+	    <![CDATA[$data['refresh'] = $this->url->link('extension/modification/refresh', 'token=' . $this->session->data['token'] . $url, true);]]>
       </search>
       <add position="before">
-        <![CDATA[$data['new'] = $this->url->link('extension/modification_editor', 'token=' . $this->session->data['token'] . $url, 'SSL');]]>
+        <![CDATA[$data['new'] = $this->url->link('extension/modification_editor', 'token=' . $this->session->data['token'] . $url, true);]]>
       </add>
     </operation>
     <operation>
@@ -20,8 +20,8 @@
       </search>
       <add position="after">
         <![CDATA[
-				'edit'            => $this->url->link('extension/modification_editor', 'token=' . $this->session->data['token'] . '&modification_id=' . $result['modification_id'], 'SSL'),
-				'download'        => $this->url->link('extension/modification_editor/download', 'token=' . $this->session->data['token'] . '&modification_id=' . $result['modification_id'], 'SSL'),
+				'edit'            => $this->url->link('extension/modification_editor', 'token=' . $this->session->data['token'] . '&modification_id=' . $result['modification_id'], true),
+				'download'        => $this->url->link('extension/modification_editor/download', 'token=' . $this->session->data['token'] . '&modification_id=' . $result['modification_id'], true),
 		]]>
       </add>
     </operation>
@@ -40,7 +40,7 @@
     </operation>
     <operation>
 	  <search index="1">
-	    <![CDATA[$this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'] . $url, 'SSL'));]]>
+	    <![CDATA[$this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'] . $url, true));]]>
 	  </search>
 	  <add position="replace">
 	    <![CDATA[
@@ -48,7 +48,7 @@
 				echo $this->session->data['success'];
 				exit;
 			} else {
-				$this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'] . $url, 'SSL'));
+				$this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'] . $url, true));
 			}
 	    ]]>
 	  </add>
