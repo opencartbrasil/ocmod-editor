@@ -2,13 +2,13 @@
 <modification>
   <name>OCMod Editor</name>
   <code>ocmod-editor</code>
-  <version>1.4</version>
+  <version>1.5</version>
   <author>OpenCart Brasil</author>
   <link>http://www.opencartbrasil.com.br</link>
   <file path="admin/controller/extension/modification.php">
     <operation>
       <search>
-	    <![CDATA[$data['refresh'] = $this->url->link('extension/modification/refresh', 'token=' . $this->session->data['token'] . $url, true);]]>
+        <![CDATA[$data['refresh'] = $this->url->link('extension/modification/refresh', 'token=' . $this->session->data['token'] . $url, true);]]>
       </search>
       <add position="before">
         <![CDATA[$data['new'] = $this->url->link('extension/modification_editor', 'token=' . $this->session->data['token'] . $url, true);]]>
@@ -16,49 +16,49 @@
     </operation>
     <operation>
       <search>
-	    <![CDATA[$data['modifications'][] = array(]]>
+        <![CDATA[$data['modifications'][] = array(]]>
       </search>
       <add position="after">
         <![CDATA[
-				'edit'            => $this->url->link('extension/modification_editor', 'token=' . $this->session->data['token'] . '&modification_id=' . $result['modification_id'], true),
-				'download'        => $this->url->link('extension/modification_editor/download', 'token=' . $this->session->data['token'] . '&modification_id=' . $result['modification_id'], true),
-		]]>
+                'edit'            => $this->url->link('extension/modification_editor', 'token=' . $this->session->data['token'] . '&modification_id=' . $result['modification_id'], true),
+                'download'        => $this->url->link('extension/modification_editor/download', 'token=' . $this->session->data['token'] . '&modification_id=' . $result['modification_id'], true),
+        ]]>
       </add>
     </operation>
     <operation>
       <search>
-	    <![CDATA[$data['tab_log'] = $this->language->get('tab_log');]]>
+        <![CDATA[$data['tab_log'] = $this->language->get('tab_log');]]>
       </search>
       <add position="after">
         <![CDATA[
-		$this->load->language('extension/modification_editor');
-		$data['button_new'] = $this->language->get('button_new');
-		$data['button_edit'] = $this->language->get('button_edit');
-		$data['button_download'] = $this->language->get('button_download');
-		]]>
+        $this->load->language('extension/modification_editor');
+        $data['button_new'] = $this->language->get('button_new');
+        $data['button_edit'] = $this->language->get('button_edit');
+        $data['button_download'] = $this->language->get('button_download');
+        ]]>
       </add>
     </operation>
     <operation>
-	  <search index="1">
-	    <![CDATA[$this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'] . $url, true));]]>
-	  </search>
-	  <add position="replace">
-	    <![CDATA[
-			if (isset($this->request->get['modification_editor'])) {        
-				echo $this->session->data['success'];
-				exit;
-			} else {
-				$this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'] . $url, true));
-			}
-	    ]]>
-	  </add>
-	</operation>
+      <search index="1">
+        <![CDATA[$this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'] . $url, true));]]>
+      </search>
+      <add position="replace">
+        <![CDATA[
+            if (isset($this->request->get['modification_editor'])) {        
+                echo $this->session->data['success'];
+                exit;
+            } else {
+                $this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'] . $url, true));
+            }
+        ]]>
+      </add>
+    </operation>
   </file>
 
   <file path="admin/view/template/extension/modification.tpl">
     <operation>
       <search>
-	    <![CDATA[<div class="pull-right">]]>
+        <![CDATA[<div class="pull-right">]]>
       </search>
       <add position="after">
         <![CDATA[<a href="<?php echo $new; ?>" data-toggle="tooltip" title="<?php echo $button_new; ?>" class="btn btn-primary"><i class="fa fa-plus"></i></a>]]>
@@ -66,13 +66,13 @@
     </operation>
     <operation>
       <search>
-	    <![CDATA[<?php if (!$modification['enabled']) { ?>]]>
+        <![CDATA[<?php if (!$modification['enabled']) { ?>]]>
       </search>
       <add position="before">
         <![CDATA[
                         <a href="<?php echo $modification['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-						<a href="<?php echo $modification['download']; ?>" data-toggle="tooltip" title="<?php echo $button_download; ?>" class="btn btn-success"><i class="fa fa-cloud-download"></i></a>
-		]]>
+                        <a href="<?php echo $modification['download']; ?>" data-toggle="tooltip" title="<?php echo $button_download; ?>" class="btn btn-success"><i class="fa fa-cloud-download"></i></a>
+        ]]>
       </add>
     </operation>
   </file>
