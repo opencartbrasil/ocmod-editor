@@ -38,92 +38,92 @@
   </div>
 </div>
 <script type="text/javascript"><!--
+  $('#warning').hide();
+  $('#success').hide();
+
+  var path = "view/javascript/ace";
+  var editorconfig = ace.require("ace/config");
+  editorconfig.set("workerPath", path);
+  var xml_editor = ace.edit("code");
+  xml_editor.setTheme("ace/theme/cobalt");
+  xml_editor.getSession().setMode("ace/mode/xml");
+
+  $('#button-clear-data').on('click', function() {
     $('#warning').hide();
     $('#success').hide();
-
-    var path = "view/javascript/ace";
-    var editorconfig = ace.require("ace/config");
-    editorconfig.set("workerPath", path);
-    var xml_editor = ace.edit("code");
-    xml_editor.setTheme("ace/theme/cobalt");
-    xml_editor.getSession().setMode("ace/mode/xml");
-
-    $('#button-clear-data').on('click', function() {
-        $('#warning').hide();
-        $('#success').hide();
-        $.ajax({
-            url: 'index.php?route=extension/modification_editor/clearCacheData&token=<?php echo $token; ?>',
-            dataType: 'json',
-            cache: false,    
-            beforeSend: function() {
-                $('#button-clear-data').button('loading');
-            },
-            complete: function() {
-                $('#button-clear-data').button('reset');
-            },
-            success: function(json) {
-                $('#success').html(json['success']);
-                $('#success').show();
-            },            
-            error: function(xhr, ajaxOptions, thrownError) {
-                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-            }
-        });
+    $.ajax({
+      url: 'index.php?route=extension/modification_editor/clearCacheData&token=<?php echo $token; ?>',
+      dataType: 'json',
+      cache: false,
+      beforeSend: function() {
+        $('#button-clear-data').button('loading');
+      },
+      complete: function() {
+        $('#button-clear-data').button('reset');
+      },
+      success: function(json) {
+        $('#success').html(json['success']);
+        $('#success').show();
+      },            
+      error: function(xhr, ajaxOptions, thrownError) {
+        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+      }
     });
+  });
 
-    $('#button-clear-image').on('click', function() {
-        $('#warning').hide();
-        $('#success').hide();
-        $.ajax({
-            url: 'index.php?route=extension/modification_editor/clearCacheImage&token=<?php echo $token; ?>',
-            dataType: 'json',
-            cache: false,    
-            beforeSend: function() {
-                $('#button-clear-image').button('loading');
-            },
-            complete: function() {
-                $('#button-clear-image').button('reset');
-            },
-            success: function(json) {
-                $('#success').html(json['success']);
-                $('#success').show();
-            },            
-            error: function(xhr, ajaxOptions, thrownError) {
-                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-            }
-        });
+  $('#button-clear-image').on('click', function() {
+    $('#warning').hide();
+    $('#success').hide();
+    $.ajax({
+      url: 'index.php?route=extension/modification_editor/clearCacheImage&token=<?php echo $token; ?>',
+      dataType: 'json',
+      cache: false,    
+      beforeSend: function() {
+        $('#button-clear-image').button('loading');
+      },
+      complete: function() {
+        $('#button-clear-image').button('reset');
+      },
+      success: function(json) {
+        $('#success').html(json['success']);
+        $('#success').show();
+      },            
+      error: function(xhr, ajaxOptions, thrownError) {
+        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+      }
     });
+  });
 
-    $('#button-save').on('click', function() {
-        $('#warning').hide();
-        $('#success').hide();
-        var id = $('input[name="modification_id"]').val();
-        var xml_code = xml_editor.getValue();
-        $.ajax({
-            url: 'index.php?route=extension/modification_editor/save&token=<?php echo $token; ?>',
-            type: 'post',        
-            dataType: 'json',
-            data: { modification_id: id, xml: xml_code },
-            cache: false,    
-            beforeSend: function() {
-                $('#button-save').button('loading');
-            },
-            complete: function() {
-                $('#button-save').button('reset');
-            },
-            success: function(json) {
-                if (json['error']) {
-                    $('#warning').html(json['error']).show();
-                } else {
-                    $('#success').html(json['success']);
-                    $('#success').show();
-                    if (id == 0) { location.href = 'index.php?route=extension/modification&token=<?php echo $token; ?>'; }
-                }
-            },            
-            error: function(xhr, ajaxOptions, thrownError) {
-                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-            }
-        });
+  $('#button-save').on('click', function() {
+    $('#warning').hide();
+    $('#success').hide();
+    var id = $('input[name="modification_id"]').val();
+    var xml_code = xml_editor.getValue();
+    $.ajax({
+      url: 'index.php?route=extension/modification_editor/save&token=<?php echo $token; ?>',
+      type: 'post',        
+      dataType: 'json',
+      data: { modification_id: id, xml: xml_code },
+      cache: false,    
+      beforeSend: function() {
+        $('#button-save').button('loading');
+      },
+      complete: function() {
+        $('#button-save').button('reset');
+      },
+      success: function(json) {
+        if (json['error']) {
+          $('#warning').html(json['error']).show();
+        } else {
+          $('#success').html(json['success']);
+          $('#success').show();
+          if (id == 0) { location.href = 'index.php?route=extension/modification&token=<?php echo $token; ?>'; }
+        }
+      },            
+      error: function(xhr, ajaxOptions, thrownError) {
+        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+      }
     });
+  });
 //--></script> 
 <?php echo $footer; ?>
