@@ -10,8 +10,8 @@ Caso deseje doar um valor para contribuir com este trabalho continuo e sempre gr
 
 ### Instalação
 
- 1. Baixe a modificação no link: https://github.com/opencartbrasil/ocmod-editor/releases.
- 2. Localize a versão mais atual da modificação que seja compatível com sua versão do OpenCart, e clique no link "ocmod-editor.ocmod.zip".
+ 1. Acesse o link: https://github.com/opencartbrasil/ocmod-editor/releases.
+ 2. Localize a versão mais atual e compatível com sua versão do OpenCart, e faça o download do arquivo "ocmod-editor.ocmod.zip".
  3. Na administração da loja acesse o menu Extensions->Extension Installer (Extensões->Instalador).
  4. Na página do instalador, clique no botão Upload e selecione o arquivo 'ocmod-editor.ocmod.zip' (que você baixou deste repositório), e aguarde a conclusão da instalação automática.
  5. Após a instalação, acesse o menu Extensions->Modifications (Extensões->Modificações) e clique no botão Refresh (Atualizar), para que a modificação instalada seja incrementada na loja, lembrando que não é o botão "Atualizar" do navegador, e sim o botão "Atualizar" na cor azul ao lado do botão laranja e vermelho na tela do próprio OpenCart.
