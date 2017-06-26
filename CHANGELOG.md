@@ -22,3 +22,6 @@ e este projeto adere para [Semantic Versioning](http://semver.org/spec/v2.0.0.ht
 
 ### Removido (Removed)
 - Removida a função refresh (Removed refresh function).
+
+[Unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/2.0.0...HEAD
+[2.0.0]: https://github.com/opencartbrasil/ocmod-editor/compare/1.6...2.0.0
