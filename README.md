@@ -1,8 +1,8 @@
 ### Resumo
 
-Esta modificação foi desenvolvida no formato OCMOD, e tem o objetivo de permitir a criação e edição de código XML no formato OCMod através da administração da loja em um editor online, o que torna o processo mais produtivo.
+Esta modificação foi desenvolvida no formato OCMOD, e tem o objetivo de permitir a criação e edição de código XML no formato OCMOD através da administração da loja em um editor online, o que torna o processo mais produtivo.
 
-É possível fazer o download do arquivo XML no formato OCMod, e limpar o cache de imagens e dados do OpenCart.
+É possível fazer o download do arquivo XML no formato OCMOD, e limpar o cache de imagens e dados do OpenCart.
 
 Caso deseje doar um valor para contribuir com este trabalho continuo e sempre gratuito, clique no botão abaixo:
 
@@ -20,15 +20,15 @@ Caso deseje doar um valor para contribuir com este trabalho continuo e sempre gr
 
 No menu Extensions->Modifications (Extensões->Modificações).
 
-- Você poderá fazer o download do arquivo XML para OCMod, através do botão "Download".
-- Você poderá editar o arquivo XML para OCMod, através do botão "Editar".
-- Você poderá criar arquivos XML do tipo OCMod, através do botão "Nova modificação".
-- Quando estiver editando ou criando um arquivo XML do tipo OCMod, você poderá excluir o cache de imagens através do botão "Apagar cache de imagens".
-- Quando estiver editando ou criando um arquivo XML do tipo OCMod, você poderá excluir o cache de dados através do botão "Apagar cache de dados".
+- Você poderá fazer o download do arquivo XML para OCMOD, através do botão "Download".
+- Você poderá editar o arquivo XML para OCMOD, através do botão "Editar".
+- Você poderá criar arquivos XML do tipo OCMOD, através do botão "Nova modificação".
+- Quando estiver editando ou criando um arquivo XML do tipo OCMOD, você poderá excluir o cache de imagens através do botão "Apagar cache de imagens".
+- Quando estiver editando ou criando um arquivo XML do tipo OCMOD, você poderá excluir o cache de dados através do botão "Apagar cache de dados".
 
 ### Desinstalação
 
-Para desinstalar a modificação, na administração da loja, acesse o menu Extensions->Modifications (Extensões->Modificações),  localize e selecione a modificação com o nome 'OCMod Editor', depois clique no botão Delete (Excluir), e no botão Refresh (Atualizar).
+Para desinstalar a modificação, na administração da loja, acesse o menu Extensions->Modifications (Extensões->Modificações),  localize e selecione a modificação com o nome 'OCMOD Editor', depois clique no botão Delete (Excluir), e no botão Refresh (Atualizar).
 
 ### Atualização
 
@@ -36,11 +36,11 @@ Acesse a administração da loja e execute o procedimento de Desinstalação, de
 
 ### Dúvidas
 
-O OCMod (OpenCart Modification) é nativo do OpenCart, ou seja, não é necessário instalar nenhum complemento no OpenCart para utilizar modificações ou extensões no formato OCMod, para mais informações sobre o OCMod, segue o link:
+O OCMOD (OpenCart Modification) é nativo do OpenCart, ou seja, não é necessário instalar nenhum complemento no OpenCart para utilizar modificações ou extensões no formato OCMOD, para mais informações sobre o OCMOD, segue o link:
 
 https://github.com/opencart/opencart/wiki/Modification-System
 
-### Os arquivos alterados virtualmente através do OCMod são:
+### Os arquivos alterados virtualmente através do OCMOD são:
 
 admin/controller/extension/modification.php
 
