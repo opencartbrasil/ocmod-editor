@@ -2,7 +2,7 @@
 <modification>
   <name>OCMod Editor</name>
   <code>ocmod-editor</code>
-  <version>1.6</version>
+  <version>2.0.0</version>
   <author>OpenCart Brasil</author>
   <link>http://www.opencartbrasil.com.br</link>
   <file path="admin/controller/extension/modification.php">
@@ -20,8 +20,8 @@
       </search>
       <add position="after">
         <![CDATA[
-                'edit'            => $this->url->link('extension/modification_editor', 'token=' . $this->session->data['token'] . '&modification_id=' . $result['modification_id'], true),
-                'download'        => $this->url->link('extension/modification_editor/download', 'token=' . $this->session->data['token'] . '&modification_id=' . $result['modification_id'], true),
+                'edit' => $this->url->link('extension/modification_editor', 'token=' . $this->session->data['token'] . '&modification_id=' . $result['modification_id'], true),
+                'download' => $this->url->link('extension/modification_editor/download', 'token=' . $this->session->data['token'] . '&modification_id=' . $result['modification_id'], true),
         ]]>
       </add>
     </operation>
@@ -44,7 +44,7 @@
       </search>
       <add position="replace">
         <![CDATA[
-            if (isset($this->request->get['modification_editor'])) {        
+            if (isset($this->request->get['modification_editor'])) {
                 echo $this->session->data['success'];
                 exit;
             } else {
@@ -54,14 +54,13 @@
       </add>
     </operation>
   </file>
-
   <file path="admin/view/template/extension/modification.tpl">
     <operation>
       <search>
         <![CDATA[<div class="pull-right">]]>
       </search>
       <add position="after">
-        <![CDATA[<a href="<?php echo $new; ?>" data-toggle="tooltip" title="<?php echo $button_new; ?>" class="btn btn-primary"><i class="fa fa-plus"></i></a>]]>
+        <![CDATA[<a href="<?php echo $new; ?>" target="_blank" data-toggle="tooltip" title="<?php echo $button_new; ?>" class="btn btn-primary"><i class="fa fa-plus"></i></a>]]>
       </add>
     </operation>
     <operation>
@@ -70,7 +69,7 @@
       </search>
       <add position="before">
         <![CDATA[
-                        <a href="<?php echo $modification['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                        <a href="<?php echo $modification['edit']; ?>" target="_blank" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
                         <a href="<?php echo $modification['download']; ?>" data-toggle="tooltip" title="<?php echo $button_download; ?>" class="btn btn-success"><i class="fa fa-cloud-download"></i></a>
         ]]>
       </add>
