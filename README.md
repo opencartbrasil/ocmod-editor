@@ -1,8 +1,8 @@
-### Resumo
+[![version][versao-badge]][CHANGELOG] [![license][licenca-badge]][LICENSE]
 
-Esta modificação foi desenvolvida no formato OCMOD, e tem o objetivo de permitir a criação e edição de código XML no formato OCMOD através da administração da loja em um editor online, o que torna o processo mais produtivo.
+### Apresentação
 
-É possível fazer o download do arquivo XML no formato OCMOD, e limpar o cache de imagens e dados do OpenCart.
+Esta modificação foi desenvolvida no formato OCMOD, e tem o objetivo de permitir a criação e edição de código XML no formato OCMOD através da administração da loja em um editor online, o que torna o processo mais produtivo, além de adicionar as funcionalidade de fazer download de qualquer arquivo XML OCMOD que esteja instalado no OpenCart, e limpar o cache de imagens e dados do OpenCart.
 
 Caso deseje doar um valor para contribuir com este trabalho continuo e sempre gratuito, clique no botão abaixo:
 
@@ -12,13 +12,13 @@ Caso deseje doar um valor para contribuir com este trabalho continuo e sempre gr
 
  1. Acesse o link: https://github.com/opencartbrasil/ocmod-editor/releases.
  2. Localize a versão mais atual e compatível com sua versão do OpenCart, e faça o download do arquivo "ocmod-editor.ocmod.zip".
- 3. Na administração da loja acesse o menu Extensions->Extension Installer (Extensões->Instalador).
+ 3. Na administração da loja acesse o menu Extensões→Instalador (Extensions→Installer).
  4. Na página do instalador, clique no botão Upload e selecione o arquivo 'ocmod-editor.ocmod.zip' (que você baixou deste repositório), e aguarde a conclusão da instalação automática.
- 5. Após a instalação, acesse o menu Extensions->Modifications (Extensões->Modificações) e clique no botão Refresh (Atualizar), para que a modificação instalada seja incrementada na loja, lembrando que não é o botão "Atualizar" do navegador, e sim o botão "Atualizar" na cor azul ao lado do botão laranja e vermelho na tela do próprio OpenCart.
+ 5. Após a instalação, acesse o menu Extensões->Modificações (Extensions->Modifications) e clique no botão Atualizar (Refresh), para que a modificação instalada seja incrementada na loja, lembrando que não é o botão "Atualizar" do navegador, e sim o botão "Atualizar" na cor azul ao lado do botão laranja e vermelho na tela do próprio OpenCart.
 
 ### Utilização
 
-No menu Extensions->Modifications (Extensões->Modificações).
+No menu Extensões→Modificações (Extensions->Modifications).
 
 - Você poderá fazer o download do arquivo XML para OCMOD, através do botão "Download".
 - Você poderá editar o arquivo XML para OCMOD, através do botão "Editar".
@@ -28,7 +28,7 @@ No menu Extensions->Modifications (Extensões->Modificações).
 
 ### Desinstalação
 
-Para desinstalar a modificação, na administração da loja, acesse o menu Extensions->Modifications (Extensões->Modificações),  localize e selecione a modificação com o nome 'OCMOD Editor', depois clique no botão Delete (Excluir), e no botão Refresh (Atualizar).
+Para desinstalar a modificação, na administração da loja, acesse o menu Extensões→Modificações (Extensions→Modifications),  localize e selecione a modificação com o nome 'OCMOD Editor', depois clique no botão Excluir (Delete), e no botão Atualizar (Refresh).
 
 ### Atualização
 
@@ -46,12 +46,7 @@ admin/controller/extension/modification.php
 
 admin/view/template/extension/modification.tpl
 
-### Como contribuir
-
- 1. Faça um Fork do projeto e edite os arquivos que desejar.
- 2. Faça um Pull para que suas sugestões de melhorias sejam avaliadas e aceitas, caso aprovadas.
- 3. Abra uma Inssue com sua dúvida ou sugestão.
-
-### Licença
-
-[GNU General Public License version 3 (GPLv3)](https://github.com/opencartbrasil/ocmod-editor/blob/master/LICENSE)
+[versao-badge]: https://img.shields.io/badge/versão-2.0.0-blue.svg
+[CHANGELOG]: ./CHANGELOG.md
+[licenca-badge]: https://img.shields.io/badge/licença-GPLv3-blue.svg
+[LICENSE]: ./LICENSE
