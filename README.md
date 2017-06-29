@@ -36,7 +36,7 @@ Acesse a administração da loja e execute o procedimento de Desinstalação, de
 
 ### Dúvidas
 
-O OCMOD (OpenCart Modification) é nativo do OpenCart, ou seja, não é necessário instalar nenhum complemento no OpenCart para utilizar modificações ou extensões no formato OCMOD, para mais informações sobre o OCMOD, segue o link:
+O OCMOD (OpenCart Modification) é nativo do OpenCart, ou seja, não é necessário instalar nenhum complemento no OpenCart para utilizar modificações ou extensões no formato OCMOD, para mais informações sobre o OCMOD, segue o link para mais informações:
 
 https://github.com/opencart/opencart/wiki/Modification-System
 
