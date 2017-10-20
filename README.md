@@ -26,13 +26,13 @@ Caso deseje doar um valor para contribuir com este trabalho continuo e sempre gr
 
 ### Utilização
 
-No menu Extensões→Modificações (Extensions->Modifications).
+No menu Extensões→Modificações (Extensions→Modifications).
 
-- Você poderá fazer o download do arquivo XML para OCMOD, através do botão "Download".
-- Você poderá editar o arquivo XML para OCMOD, através do botão "Editar".
-- Você poderá criar arquivos XML do tipo OCMOD, através do botão "Nova modificação".
-- Quando estiver editando ou criando um arquivo XML do tipo OCMOD, você poderá excluir o cache de imagens através do botão "Apagar cache de imagens".
-- Quando estiver editando ou criando um arquivo XML do tipo OCMOD, você poderá excluir o cache de dados através do botão "Apagar cache de dados".
+- Você poderá editar um arquivo XML no formato OCMOD através do botão "Editar".
+- Você poderá criar arquivos XML no formato OCMOD através do botão "Nova modificação".
+- Você poderá fazer o download de uma arquivo XML no formato OCMOD através do botão "Download".
+- Quando estiver criando/editando um arquivo XML no formato OCMOD, você poderá excluir o cache de imagens através do botão "Apagar cache de imagens".
+- Quando estiver criando/editando um arquivo XML no formato OCMOD, você poderá excluir o cache de dados através do botão "Apagar cache de dados".
 
 ### Desinstalação
 
