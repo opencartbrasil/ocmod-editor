@@ -2,7 +2,15 @@
 
 ### Apresentação
 
-Esta modificação foi desenvolvida no formato OCMOD, e tem o objetivo de permitir a criação e edição de código XML no formato OCMOD através da administração da loja em um editor online, o que torna o processo mais produtivo, além de adicionar as funcionalidade de fazer download de qualquer arquivo XML OCMOD que esteja instalado no OpenCart, e limpar o cache de imagens e dados do OpenCart.
+Esta extensão foi desenvolvida no formato OCMOD, e tem o objetivo de habilitar na administração do OpenCart funcionalidades para criar, editar e gerenciar arquivos XML no formato OCMOD, além de possuir recursos úteis que são utilizados em atividades rotineiras durante o processo de implantação e ajuste da loja.
+
+**As seguintes funcionalidades serão adicionadas no menu Extensões→Modificações:**
+
+- Limpar o cache de imagens.
+- Criar arquivos XML no formato OCMOD.
+- Editar arquivos XML no formato OCMOD.
+- Limpar o cache de dados gerados pela loja.
+- Fazer download de qualquer arquivo XML no formato OCMOD.
 
 Caso deseje doar um valor para contribuir com este trabalho continuo e sempre gratuito, clique no botão abaixo:
 
