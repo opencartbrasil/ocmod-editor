@@ -47,6 +47,6 @@ O formato é baseado no [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) 
 ### Removido (Removed)
 - Removida a função refresh (Removed refresh function).
 
-[Unreleased]: https://github.com/opencartbrasil/ocmod-editor/compare/2.2.0...HEAD
-[2.2.0]: https://github.com/opencartbrasil/ocmod-editor/compare/2.1.0...2.2.0
-[2.1.0]: https://github.com/opencartbrasil/ocmod-editor/compare/2.0.0...2.1.0
+[Unreleased]: https://github.com/opencartbrasil/ocmod-editor/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/opencartbrasil/ocmod-editor/compare/v2.1.0...v2.2.0
+[2.1.0]: https://github.com/opencartbrasil/ocmod-editor/compare/2.0.0...v2.1.0
