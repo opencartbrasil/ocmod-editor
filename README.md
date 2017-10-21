@@ -39,7 +39,7 @@ O OCMOD (OpenCart Modification) é nativo do OpenCart, ou seja, não é necessá
 
 https://github.com/opencart/opencart/wiki/Modification-System
 
-[versao-badge]: https://img.shields.io/badge/versão-2.0.0-blue.svg
+[versao-badge]: https://img.shields.io/badge/versão-2.2.0-blue.svg
 [CHANGELOG]: ./CHANGELOG.md
 [licenca-badge]: https://img.shields.io/badge/licença-GPLv3-blue.svg
 [LICENSE]: ./LICENSE
