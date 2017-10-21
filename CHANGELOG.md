@@ -1,12 +1,27 @@
 # Changelog
 Todas as mudanças neste projeto serão documentadas neste arquivo.
 
-O formato é baseado no [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
-e este projeto adere a [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+O formato é baseado no [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) e este projeto adere a [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## [2.0.0] - 2017-06-25
+## [2.2.0] - 2017-10-21
+### Adicionado (Added)
+- Compatível com OpenCart 2.2 e 2.3.
+(Compatible with OpenCart 2.2 and 2.3.)
+
+## 2.1.0 - 2017-10-21
+### Adicionado (Added)
+- Nova tela para visulizar erros OCMOD.
+(New screen for viewing OCMOD errors.)
+- Nova função refresh para atualização automaticamente das modificações.
+(New refresh function to automatically update the modifications.)
+
+### Corrigido (Fixed)
+- Melhorias no código e layout.
+ (Improvements in code and layout.)
+
+## 2.0.0 - 2017-06-25
 ### Adicionado (Added)
 - Nova informação sobre o Sitema de Modificações
 (New info Modification System).
@@ -32,5 +47,5 @@ e este projeto adere a [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 ### Removido (Removed)
 - Removida a função refresh (Removed refresh function).
 
-[Unreleased]: https://github.com/opencartbrasil/ocmod-editor/compare/2.0.0...HEAD
-[2.0.0]: https://github.com/opencartbrasil/ocmod-editor/compare/1.6...2.0.0
+[Unreleased]: https://github.com/opencartbrasil/ocmod-editor/compare/2.2.0...HEAD
+[2.2.0]: https://github.com/opencartbrasil/ocmod-editor/compare/2.1.0...2.2.0

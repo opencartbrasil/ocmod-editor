@@ -13,12 +13,12 @@ class ControllerExtensionModificationEditor extends Controller {
 
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_home'),
-            'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], 'SSL')
+            'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true)
         );
 
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_modifications'),
-            'href' => $this->url->link('extension/modification', 'token=' . $this->session->data['token'], 'SSL')
+            'href' => $this->url->link('extension/modification', 'token=' . $this->session->data['token'], true)
         );
 
         if (isset($this->request->get['modification_id'])) {
@@ -34,10 +34,10 @@ class ControllerExtensionModificationEditor extends Controller {
 
                 $data['breadcrumbs'][] = array(
                     'text' => $this->language->get('heading_title'),
-                    'href' => $this->url->link('extension/modification_editor', 'token=' . $this->session->data['token'] . '&modification_id=' . $modification_id, 'SSL')
+                    'href' => $this->url->link('extension/modification_editor', 'token=' . $this->session->data['token'] . '&modification_id=' . $modification_id, true)
                 );
             } else {
-                $this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'], 'SSL'));
+                $this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'], true));
             }
         } else {
             $data['modification_id'] = 0;
@@ -61,7 +61,7 @@ EOT;
 
             $data['breadcrumbs'][] = array(
                 'text' => $this->language->get('heading_title'),
-                'href' => $this->url->link('extension/modification_editor', 'token=' . $this->session->data['token'], 'SSL')
+                'href' => $this->url->link('extension/modification_editor', 'token=' . $this->session->data['token'], true)
             );
         }
 
@@ -77,7 +77,7 @@ EOT;
         $data['button_save'] = $this->language->get('button_save');
         $data['button_return'] = $this->language->get('button_return');
 
-        $data['return'] = $this->url->link('extension/modification', 'token=' . $this->session->data['token'], 'SSL');
+        $data['return'] = $this->url->link('extension/modification', 'token=' . $this->session->data['token'], true);
 
         $data['token'] = $this->session->data['token'];
 
@@ -85,7 +85,7 @@ EOT;
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
 
-        $this->response->setOutput($this->load->view('extension/modification_editor.tpl', $data));
+        $this->response->setOutput($this->load->view('extension/modification_editor', $data));
     }
 
     public function download() {
@@ -134,7 +134,7 @@ EOT;
                 exit($this->language->get('error_headers'));
             }
         } else {
-            $this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'], 'SSL'));
+            $this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'], true));
         }
     }
 
@@ -622,7 +622,7 @@ EOT;
 
     private function validate() {
         if (!$this->user->hasPermission('modify', 'extension/modification_editor')) {
-            $this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'], 'SSL'));
+            $this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'], true));
         }
     }
 }

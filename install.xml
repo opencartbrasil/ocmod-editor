@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <modification>
-  <name>OCMOD Editor for OpenCart 2.0 and 2.1</name>
+  <name>OCMOD Editor for OpenCart 2.2 and 2.3</name>
   <code>ocmod-editor</code>
-  <version>2.1.0</version>
+  <version>2.2.0</version>
   <author>OpenCart Brasil</author>
   <link>http://www.opencartbrasil.com.br</link>
   <file path="admin/controller/extension/modification.php">
     <operation>
-      <search><![CDATA[$data['refresh'] = $this->url->link('extension/modification/refresh', 'token=' . $this->session->data['token'] . $url, 'SSL');]]></search>
+      <search><![CDATA[$data['refresh'] = $this->url->link('extension/modification/refresh', 'token=' . $this->session->data['token'] . $url, true);]]></search>
       <add position="before"><![CDATA[
-        $data['log_error'] = $this->url->link('extension/modification_error_log', 'token=' . $this->session->data['token'] . $url, 'SSL');
-        $data['new'] = $this->url->link('extension/modification_editor', 'token=' . $this->session->data['token'] . $url, 'SSL');
+        $data['log_error'] = $this->url->link('extension/modification_error_log', 'token=' . $this->session->data['token'] . $url, true);
+        $data['new'] = $this->url->link('extension/modification_editor', 'token=' . $this->session->data['token'] . $url, true);
       ]]></add>
     </operation>
     <operation>
       <search><![CDATA[$data['modifications'][] = array(]]></search>
       <add position="after"><![CDATA[
-        'edit' => $this->url->link('extension/modification_editor', 'token=' . $this->session->data['token'] . '&modification_id=' . $result['modification_id'], 'SSL'),
-        'download' => $this->url->link('extension/modification_editor/download', 'token=' . $this->session->data['token'] . '&modification_id=' . $result['modification_id'], 'SSL'),
+        'edit' => $this->url->link('extension/modification_editor', 'token=' . $this->session->data['token'] . '&modification_id=' . $result['modification_id'], true),
+        'download' => $this->url->link('extension/modification_editor/download', 'token=' . $this->session->data['token'] . '&modification_id=' . $result['modification_id'], true),
       ]]></add>
     </operation>
     <operation>
@@ -32,13 +32,13 @@
       ]]></add>
     </operation>
     <operation>
-      <search index="1"><![CDATA[$this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'] . $url, 'SSL'));]]></search>
+      <search index="1"><![CDATA[$this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'] . $url, true));]]></search>
       <add position="replace"><![CDATA[
         if (isset($this->request->get['modification_editor'])) {
             echo $this->session->data['success'];
             exit;
         } else {
-            $this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'] . $url, 'SSL'));
+            $this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'] . $url, true));
         }
       ]]></add>
     </operation>
