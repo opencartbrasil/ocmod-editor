@@ -1,58 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <modification>
-  <name>OCMOD Editor for OpenCart 2.2 and 2.3</name>
+  <name>OCMOD Editor for OpenCart 3.0</name>
   <code>ocmod-editor</code>
-  <version>2.2.0</version>
+  <version>3.0.0</version>
   <author>OpenCart Brasil</author>
   <link>http://www.opencartbrasil.com.br</link>
-  <file path="admin/controller/extension/modification.php">
+  <file path="admin/controller/startup/permission.php">
     <operation>
-      <search><![CDATA[$data['refresh'] = $this->url->link('extension/modification/refresh', 'token=' . $this->session->data['token'] . $url, true);]]></search>
+      <search><![CDATA[$extension = array(]]></search>
+      <add position="after"><![CDATA['extension/modification',]]></add>
+    </operation>
+  </file>
+  <file path="admin/controller/marketplace/modification.php">
+    <operation>
+      <search><![CDATA[public function index() {]]></search>
+      <add position="after"><![CDATA[
+        $this->load->model('user/user_group');
+        $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/editor');
+        $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/editor');
+        $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/error_log');
+        $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/error_log');
+      ]]></add>
+    </operation>
+    <operation>
+      <search><![CDATA[$data['refresh'] = $this->url->link('marketplace/modification/refresh', 'user_token=' . $this->session->data['user_token'] . $url, true);]]></search>
       <add position="before"><![CDATA[
-        $data['log_error'] = $this->url->link('extension/modification_error_log', 'token=' . $this->session->data['token'] . $url, true);
-        $data['new'] = $this->url->link('extension/modification_editor', 'token=' . $this->session->data['token'] . $url, true);
+        $data['log_error'] = $this->url->link('extension/modification/error_log', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['new'] = $this->url->link('extension/modification/editor', 'user_token=' . $this->session->data['user_token'] . $url, true);
       ]]></add>
     </operation>
     <operation>
       <search><![CDATA[$data['modifications'][] = array(]]></search>
       <add position="after"><![CDATA[
-        'edit' => $this->url->link('extension/modification_editor', 'token=' . $this->session->data['token'] . '&modification_id=' . $result['modification_id'], true),
-        'download' => $this->url->link('extension/modification_editor/download', 'token=' . $this->session->data['token'] . '&modification_id=' . $result['modification_id'], true),
+        'edit' => $this->url->link('extension/modification/editor', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'], true),
+        'download' => $this->url->link('extension/modification/editor/download', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'], true),
       ]]></add>
     </operation>
     <operation>
-      <search><![CDATA[$data['tab_log'] = $this->language->get('tab_log');]]></search>
-      <add position="after"><![CDATA[
-        $this->load->language('extension/modification_editor');
-
-        $data['button_log_error'] = $this->language->get('button_log_error');
-        $data['button_new'] = $this->language->get('button_new');
-        $data['button_edit'] = $this->language->get('button_edit');
-        $data['button_download'] = $this->language->get('button_download');
-      ]]></add>
+      <search><![CDATA[public function index() {]]></search>
+      <add position="after"><![CDATA[$this->load->language('extension/modification/editor');]]></add>
     </operation>
     <operation>
-      <search index="1"><![CDATA[$this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'] . $url, true));]]></search>
+      <search index="1"><![CDATA[$this->response->redirect($this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'] . $url, true));]]></search>
       <add position="replace"><![CDATA[
         if (isset($this->request->get['modification_editor'])) {
             echo $this->session->data['success'];
             exit;
         } else {
-            $this->response->redirect($this->url->link('extension/modification', 'token=' . $this->session->data['token'] . $url, true));
+            $this->response->redirect($this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'] . $url, true));
         }
       ]]></add>
     </operation>
   </file>
-  <file path="admin/view/template/extension/modification.tpl">
+  <file path="admin/view/template/marketplace/modification.twig">
     <operation>
       <search><![CDATA[<div class="pull-right">]]></search>
-      <add position="after"><![CDATA[<a href="<?php echo $log_error; ?>" data-toggle="tooltip" title="<?php echo $button_log_error; ?>" class="btn btn-default"><i class="fa fa-exclamation-triangle"></i></a> <a href="<?php echo $new; ?>" data-toggle="tooltip" title="<?php echo $button_new; ?>" class="btn btn-primary"><i class="fa fa-plus"></i></a>]]></add>
+      <add position="after"><![CDATA[<a href="{{ log_error }}" data-toggle="tooltip" title="{{ button_log_error }}" class="btn btn-default"><i class="fa fa-exclamation-triangle"></i></a> <a href="{{ new }}" data-toggle="tooltip" title="{{ button_new }}" class="btn btn-primary"><i class="fa fa-plus"></i></a>]]></add>
     </operation>
     <operation>
-      <search><![CDATA[<?php if (!$modification['enabled']) { ?>]]></search>
+      <search><![CDATA[{% if not modification.enabled %}]]></search>
       <add position="before"><![CDATA[
-        <a href="<?php echo $modification['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-        <a href="<?php echo $modification['download']; ?>" data-toggle="tooltip" title="<?php echo $button_download; ?>" class="btn btn-success"><i class="fa fa-cloud-download"></i></a>
+        <a href="{{ modification.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+        <a href="{{ modification.download }}" data-toggle="tooltip" title="{{ button_download }}" class="btn btn-success"><i class="fa fa-cloud-download"></i></a>
       ]]></add>
     </operation>
   </file>
