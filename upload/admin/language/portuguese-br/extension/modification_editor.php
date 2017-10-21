@@ -3,8 +3,8 @@
 $_['heading_title']         = 'Editor de modificações';
 
 // Text
-$_['text_success_edit']     = 'Modificação alterada com sucesso! Atualize o cache de modificações para adicionar a modificação no OpenCart.';
-$_['text_success_add']      = 'Modificação adicionada com sucesso! Atualize o cache de modificações para adicionar a modificação no OpenCart.';
+$_['text_success_edit']     = 'Modificação alterada com sucesso e cache atualizado!';
+$_['text_success_add']      = 'Modificação adicionada com sucesso e cache atualizado!';
 $_['text_clear_data']       = 'O cache de arquivos do banco de dados foi apagado!';
 $_['text_clear_image']      = 'O cache de imagens foi apagado!';
 $_['text_loading']          = 'Salvando...';
@@ -15,9 +15,10 @@ $_['text_help_ocmod']       = '<strong>Ajuda:</strong><br /><a href="https://git
 $_['text_xml_code']         = 'Código XML';
 
 // Button
+$_['button_log_error']      = 'Log de erros';
 $_['button_new']            = 'Nova modificação';
 $_['button_edit']           = 'Editar modificação';
-$_['button_download']       = 'Download do xml';
+$_['button_download']       = 'Download do XML';
 $_['button_clear_data']     = 'Apagar cache de dados';
 $_['button_clear_image']    = 'Apagar cache de imagens';
 $_['button_save']           = 'Salvar modificação';

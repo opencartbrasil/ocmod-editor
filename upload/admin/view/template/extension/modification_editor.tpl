@@ -6,7 +6,7 @@
         <button type="button" id="button-clear-image" data-toggle="tooltip" title="<?php echo $button_clear_image; ?>" class="btn btn-danger" data-loading-text="<?php echo $text_erasing; ?>"><i class="fa fa-eraser"></i></button>
         <button type="button" id="button-clear-data" data-toggle="tooltip" title="<?php echo $button_clear_data; ?>" class="btn btn-warning" data-loading-text="<?php echo $text_erasing; ?>"><i class="fa fa-eraser"></i></button>
         <button type="button" id="button-save" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary" data-loading-text="<?php echo $text_loading; ?>"><i class="fa fa-save"></i></button>
-        <a href="<?php echo $return; ?>" data-toggle="tooltip" title="<?php echo $button_return; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a>        
+        <a href="<?php echo $return; ?>" data-toggle="tooltip" title="<?php echo $button_return; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a>
       </div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
@@ -17,8 +17,6 @@
     </div>
   </div>
   <div class="container-fluid">
-    <div class="alert alert-danger" id="warning" role="alert"></div>
-    <div class="alert alert alert-success" id="success" role="alert"></div>
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $name; ?></h3>
@@ -43,21 +41,16 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-  $('#warning').hide();
-  $('#success').hide();
-
   var path = "view/javascript/ace";
   var editorconfig = ace.require("ace/config");
   editorconfig.set("workerPath", path);
   var xml_editor = ace.edit("code");
   xml_editor.setTheme("ace/theme/cobalt");
   xml_editor.getSession().setMode("ace/mode/xml");
-
   $('#button-clear-data').on('click', function() {
-    $('#warning').hide();
-    $('#success').hide();
+    $('.alert').remove();
     $.ajax({
-      url: 'index.php?route=extension/modification_editor/clearCacheData&token=<?php echo $token; ?>',
+      url: 'index.php?route=extension/modification_editor/clear_cache_data&token=<?php echo $token; ?>',
       dataType: 'json',
       cache: false,
       beforeSend: function() {
@@ -67,8 +60,11 @@
         $('#button-clear-data').button('reset');
       },
       success: function(json) {
-        $('#success').html(json['success']);
-        $('#success').show();
+        if (json['error']) {
+          $('.panel-default').before('<div class="alert alert-danger" role="alert">'+json['error']+'</div>');
+        } else {
+          $('.panel-default').before('<div class="alert alert-success" role="alert">'+json['success']+'</div>');
+        }
       },
       error: function(xhr, ajaxOptions, thrownError) {
         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -76,10 +72,9 @@
     });
   });
   $('#button-clear-image').on('click', function() {
-    $('#warning').hide();
-    $('#success').hide();
+    $('.alert').remove();
     $.ajax({
-      url: 'index.php?route=extension/modification_editor/clearCacheImage&token=<?php echo $token; ?>',
+      url: 'index.php?route=extension/modification_editor/clear_cache_image&token=<?php echo $token; ?>',
       dataType: 'json',
       cache: false,
       beforeSend: function() {
@@ -89,17 +84,19 @@
         $('#button-clear-image').button('reset');
       },
       success: function(json) {
-        $('#success').html(json['success']);
-        $('#success').show();
+        if (json['error']) {
+          $('.panel-default').before('<div class="alert alert-danger" role="alert">'+json['error']+'</div>');
+        } else {
+          $('.panel-default').before('<div class="alert alert-success" role="alert">'+json['success']+'</div>');
+        }
       },
       error: function(xhr, ajaxOptions, thrownError) {
         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
       }
     });
   });
-  $('#button-save').on('click', function() {
-    $('#warning').hide();
-    $('#success').hide();
+  $('#button-save').on('click', function(){
+    $('.alert').remove();
     var id = $('input[name="modification_id"]').val();
     var xml_code = xml_editor.getValue();
     $.ajax({
@@ -116,10 +113,9 @@
       },
       success: function(json) {
         if (json['error']) {
-          $('#warning').html(json['error']).show();
+          $('.panel-default').before('<div class="alert alert-danger" role="alert">'+json['error']+'</div>');
         } else {
-          $('#success').html(json['success']);
-          $('#success').show();
+          $('.panel-default').before('<div class="alert alert-success" role="alert">'+json['success']+'</div>');
           if (id == 0) { location.href = 'index.php?route=extension/modification&token=<?php echo $token; ?>'; }
         }
       },
