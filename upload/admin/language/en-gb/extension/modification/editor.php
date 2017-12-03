@@ -5,8 +5,9 @@ $_['heading_title']         = 'Modification Editor';
 // Text
 $_['text_success_edit']     = 'Success: You have modified modification and update modification cache!';
 $_['text_success_add']      = 'Success: You have add modification and update modification cache!';
-$_['text_clear_data']       = 'Success: Erased database file cache!';
-$_['text_clear_image']      = 'Success: Erased images cache!';
+$_['text_erase_theme']      = 'Success: Erased twig/sass cache!';
+$_['text_erase_data']       = 'Success: Erased database file cache!';
+$_['text_erase_image']      = 'Success: Erased images cache!';
 $_['text_loading']          = 'Saving...';
 $_['text_erasing']          = 'Erasing...';
 $_['text_modifications']    = 'Modifications';
@@ -16,11 +17,13 @@ $_['text_xml_code']         = 'XML Code';
 
 // Button
 $_['button_log_error']      = 'Log error';
+$_['button_files']          = 'Modified files';
 $_['button_new']            = 'New modification';
 $_['button_edit']           = 'Edit modification';
 $_['button_download']       = 'Download XML file';
-$_['button_clear_data']     = 'Clear cache database file';
-$_['button_clear_image']    = 'Clear cache images';
+$_['button_erase_theme']    = 'Erase twig/sass cache';
+$_['button_erase_data']     = 'Erase database file cache';
+$_['button_erase_image']    = 'Erase images cache';
 $_['button_save']           = 'Save modification';
 $_['button_return']         = 'Return modifications';
 

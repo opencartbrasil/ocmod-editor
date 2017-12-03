@@ -1,0 +1,58 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-exclamation-triangle"></i> {{ text_list }}</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th bgcolor="#f5f5f5" class="text-center">{{ text_file }}</th>
+                <th bgcolor="#f5f5f5" class="text-center">{{ text_modifications }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if modified_files %}
+              {% for modified_file in modified_files %}
+              <tr>
+                <td style="vertical-align:top">{{ modified_file.file }}</td>
+                <td>
+                  {% if modified_file.modifications %}
+                  {% set i = 0 %}
+                  {% for modification in modified_file.modifications %}
+                  {% if i > 0 %}<br /><br />{% endif %}
+                  <strong>{{ text_modification }}</strong> {{ modification.name }}<br />
+                  <strong>{{ text_version }}</strong> {{ modification.version }}<br />
+                  <strong>{{ text_author }}</strong> {{ modification.author }}
+                  {% set i = i + 1 %}
+                  {% endfor %}
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+              {% else %}
+              <tr>
+                <td class="text-center" colspan="2">{{ text_no_results }}</td>
+              </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}

@@ -153,6 +153,8 @@ EOT;
                             'link'
                         );
 
+                        $this->load->model('extension/modification/editor');
+
                         foreach ($tags as $tag) {
                             $item = $dom->getElementsByTagName($tag)->item(0);
 
@@ -181,9 +183,6 @@ EOT;
                             if (isset($this->request->post['modification_id'])) {
                                 $modification_id = $this->request->post['modification_id'];
 
-                                $this->load->model('setting/modification');
-                                $this->load->model('extension/modification/editor');
-
                                 if ($modification_id > 0) {
                                     $modification_info = $this->model_extension_modification_editor->getModification($modification_id);
 
@@ -192,7 +191,7 @@ EOT;
                                             $this->model_extension_modification_editor->editModification($modification_id, $modification_data);
                                             $json['success'] = $this->language->get('text_success_edit');
                                         } else {
-                                            $modification_info = $this->model_setting_modification->getModificationByCode($modification_data['code']);
+                                            $modification_info = $this->model_extension_modification_editor->getModificationByCode($modification_data['code']);
 
                                             if ($modification_info) {
                                                 $json['error'] = sprintf($this->language->get('error_code_used'), $modification_info['name']);
@@ -205,7 +204,7 @@ EOT;
                                         $json['error'] = $this->language->get('error_modification_id');
                                     }
                                 } else {
-                                    $modification_info = $this->model_setting_modification->getModificationByCode($modification_data['code']);
+                                    $modification_info = $this->model_extension_modification_editor->getModificationByCode($modification_data['code']);
 
                                     if ($modification_info) {
                                         $json['error'] = sprintf($this->language->get('error_code_used'), $modification_info['name']);
@@ -237,7 +236,56 @@ EOT;
         $this->response->setOutput(json_encode($json));
     }
 
-    public function clear_cache_data() {
+    public function erase_cache_theme() {
+        $json = array();
+
+        $this->load->language('extension/modification/editor');
+
+        if (!$this->user->hasPermission('modify', 'extension/modification/editor')) {
+            $json['error'] = $this->language->get('error_permission');
+        } else {
+            $file = DIR_APPLICATION  . 'view/stylesheet/bootstrap.css';
+            
+            if (is_file($file) && is_file(DIR_APPLICATION . 'view/stylesheet/sass/_bootstrap.scss')) {
+                unlink($file);
+            }
+             
+            $files = glob(DIR_CATALOG  . 'view/theme/*/stylesheet/sass/_bootstrap.scss');
+             
+            foreach ($files as $file) {
+                $file = substr($file, 0, -21) . '/bootstrap.css';
+                
+                if (is_file($file)) {
+                    unlink($file);
+                }
+            }
+
+            $directories = glob(DIR_CACHE . '*', GLOB_ONLYDIR);
+
+            if ($directories) {
+                foreach ($directories as $directory) {
+                    $files = glob($directory . '/*');
+                    
+                    foreach ($files as $file) { 
+                        if (is_file($file)) {
+                            unlink($file);
+                        }
+                    }
+                    
+                    if (is_dir($directory)) {
+                        rmdir($directory);
+                    }
+                }
+            }
+
+            $json['success'] = $this->language->get('text_erase_theme');
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
+
+    public function erase_cache_data() {
         $json = array();
 
         $this->load->language('extension/modification/editor');
@@ -254,14 +302,14 @@ EOT;
                 }
             }
 
-            $json['success'] = $this->language->get('text_clear_data');
+            $json['success'] = $this->language->get('text_erase_data');
         }
 
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
 
-    public function clear_cache_image() {
+    public function erase_cache_image() {
         $json = array();
 
         $this->load->language('extension/modification/editor');
@@ -272,7 +320,7 @@ EOT;
             $this->delete_tree(DIR_IMAGE . 'cache/');
             @mkdir(DIR_IMAGE . 'cache/');
 
-            $json['success'] = $this->language->get('text_clear_image');
+            $json['success'] = $this->language->get('text_erase_image');
         }
 
         $this->response->addHeader('Content-Type: application/json');
@@ -338,8 +386,8 @@ EOT;
             }
         }
 
-        $this->load->model('setting/modification');
-        $results = $this->model_setting_modification->getModifications();
+        $this->load->model('extension/modification/editor');
+        $results = $this->model_extension_modification_editor->getModifications();
         foreach ($results as $result) {
             if ($result['status']) {
                 $xml[] = $result['xml'];

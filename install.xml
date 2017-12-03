@@ -2,7 +2,7 @@
 <modification>
   <name>OCMOD Editor for OpenCart 3.0</name>
   <code>ocmod-editor</code>
-  <version>3.0.0</version>
+  <version>3.1.0</version>
   <author>OpenCart Brasil</author>
   <link>http://www.opencartbrasil.com.br</link>
   <file path="admin/controller/startup/permission.php">
@@ -20,12 +20,15 @@
         $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/editor');
         $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/error_log');
         $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/error_log');
+        $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/files');
+        $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/files');
       ]]></add>
     </operation>
     <operation>
       <search><![CDATA[$data['refresh'] = $this->url->link('marketplace/modification/refresh', 'user_token=' . $this->session->data['user_token'] . $url, true);]]></search>
       <add position="before"><![CDATA[
         $data['log_error'] = $this->url->link('extension/modification/error_log', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['files'] = $this->url->link('extension/modification/files', 'user_token=' . $this->session->data['user_token'] . $url, true);
         $data['new'] = $this->url->link('extension/modification/editor', 'user_token=' . $this->session->data['user_token'] . $url, true);
       ]]></add>
     </operation>
@@ -55,7 +58,7 @@
   <file path="admin/view/template/marketplace/modification.twig">
     <operation>
       <search><![CDATA[<div class="pull-right">]]></search>
-      <add position="after"><![CDATA[<a href="{{ log_error }}" data-toggle="tooltip" title="{{ button_log_error }}" class="btn btn-default"><i class="fa fa-exclamation-triangle"></i></a> <a href="{{ new }}" data-toggle="tooltip" title="{{ button_new }}" class="btn btn-primary"><i class="fa fa-plus"></i></a>]]></add>
+      <add position="after"><![CDATA[<a href="{{ log_error }}" data-toggle="tooltip" title="{{ button_log_error }}" class="btn btn-default"><i class="fa fa-exclamation-triangle"></i></a> <a href="{{ files }}" data-toggle="tooltip" title="{{ button_files }}" class="btn btn-default"><i class="fa fa-list-alt"></i></a> <a href="{{ new }}" data-toggle="tooltip" title="{{ button_new }}" class="btn btn-primary"><i class="fa fa-plus"></i></a>]]></add>
     </operation>
     <operation>
       <search><![CDATA[{% if not modification.enabled %}]]></search>

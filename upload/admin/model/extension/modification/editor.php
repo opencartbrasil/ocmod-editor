@@ -1,7 +1,21 @@
 <?php
 class ModelExtensionModificationEditor extends Model {
+    public function getModifications($data = array()) {
+        $sql = "SELECT * FROM " . DB_PREFIX . "modification ORDER BY name";
+
+        $query = $this->db->query($sql);
+
+        return $query->rows;
+    }
+
     public function getModification($modification_id) {
         $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "modification WHERE modification_id = '" . (int)$modification_id . "'");
+
+        return $query->row;
+    }
+
+    public function getModificationByCode($code) {
+        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "modification WHERE code = '" . $this->db->escape($code) . "'");
 
         return $query->row;
     }

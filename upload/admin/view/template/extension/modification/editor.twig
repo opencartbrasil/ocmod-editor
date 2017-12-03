@@ -3,8 +3,9 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
-        <button type="button" id="button-clear-image" data-toggle="tooltip" title="{{ button_clear_image }}" class="btn btn-danger" data-loading-text="{{ text_erasing }}"><i class="fa fa-eraser"></i></button>
-        <button type="button" id="button-clear-data" data-toggle="tooltip" title="{{ button_clear_data }}" class="btn btn-warning" data-loading-text="{{ text_erasing }}"><i class="fa fa-eraser"></i></button>
+        <button type="button" id="button-erase-theme" data-toggle="tooltip" title="{{ button_erase_theme }}" class="btn btn-success" data-loading-text="{{ text_erasing }}"><i class="fa fa-eraser"></i></button>
+        <button type="button" id="button-erase-data" data-toggle="tooltip" title="{{ button_erase_data }}" class="btn btn-warning" data-loading-text="{{ text_erasing }}"><i class="fa fa-eraser"></i></button>
+        <button type="button" id="button-erase-image" data-toggle="tooltip" title="{{ button_erase_image }}" class="btn btn-danger" data-loading-text="{{ text_erasing }}"><i class="fa fa-eraser"></i></button>
         <button type="button" id="button-save" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary" data-loading-text="{{ text_loading }}"><i class="fa fa-save"></i></button>
         <a href="{{ return }}" data-toggle="tooltip" title="{{ button_return }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
       </div>
@@ -47,17 +48,17 @@
   var xml_editor = ace.edit("code");
   xml_editor.setTheme("ace/theme/cobalt");
   xml_editor.getSession().setMode("ace/mode/xml");
-  $('#button-clear-data').on('click', function() {
+  $('#button-erase-theme').on('click', function() {
     $('.alert').remove();
     $.ajax({
-      url: 'index.php?route=extension/modification/editor/clear_cache_data&user_token={{ user_token }}',
+      url: 'index.php?route=extension/modification/editor/erase_cache_theme&user_token={{ user_token }}',
       dataType: 'json',
       cache: false,
       beforeSend: function() {
-        $('#button-clear-data').button('loading');
+        $('#button-erase-theme').button('loading');
       },
       complete: function() {
-        $('#button-clear-data').button('reset');
+        $('#button-erase-theme').button('reset');
       },
       success: function(json) {
         if (json['error']) {
@@ -71,17 +72,41 @@
       }
     });
   });
-  $('#button-clear-image').on('click', function() {
+  $('#button-erase-data').on('click', function() {
     $('.alert').remove();
     $.ajax({
-      url: 'index.php?route=extension/modification/editor/clear_cache_image&user_token={{ user_token }}',
+      url: 'index.php?route=extension/modification/editor/erase_cache_data&user_token={{ user_token }}',
       dataType: 'json',
       cache: false,
       beforeSend: function() {
-        $('#button-clear-image').button('loading');
+        $('#button-erase-data').button('loading');
       },
       complete: function() {
-        $('#button-clear-image').button('reset');
+        $('#button-erase-data').button('reset');
+      },
+      success: function(json) {
+        if (json['error']) {
+          $('.panel-default').before('<div class="alert alert-danger" role="alert">'+json['error']+'</div>');
+        } else {
+          $('.panel-default').before('<div class="alert alert-success" role="alert">'+json['success']+'</div>');
+        }
+      },
+      error: function(xhr, ajaxOptions, thrownError) {
+        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+      }
+    });
+  });
+  $('#button-erase-image').on('click', function() {
+    $('.alert').remove();
+    $.ajax({
+      url: 'index.php?route=extension/modification/editor/erase_cache_image&user_token={{ user_token }}',
+      dataType: 'json',
+      cache: false,
+      beforeSend: function() {
+        $('#button-erase-image').button('loading');
+      },
+      complete: function() {
+        $('#button-erase-image').button('reset');
       },
       success: function(json) {
         if (json['error']) {

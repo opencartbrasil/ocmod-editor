@@ -10,9 +10,11 @@ Esta extensão foi desenvolvida no formato OCMOD, e tem o objetivo de habilitar 
 - Editar arquivos XML no formato OCMOD.
 - Limpar o cache de dados gerados pela loja.
 - Limpar o cache de imagens geradas pela loja.
+- Limpar o cache do twig/sass gerados pela loja.
 - Fazer download de qualquer arquivo XML no formato OCMOD.
 - Validar o preenchimento das tags necessárias do XML no formato OCMOD.
 - Validar todos os arquivos XML no formato OCMOD e gera log de erros amigável.
+- Visualizar uma lista com todos os arquivos que foram modificados por OCMOD.
 
 Caso deseje doar um valor para contribuir com este trabalho continuo e sempre gratuito, clique no botão abaixo:
 
@@ -23,11 +25,11 @@ Caso deseje doar um valor para contribuir com este trabalho continuo e sempre gr
  1. Acesse o link: https://github.com/opencartbrasil/ocmod-editor/releases.
  2. Localize a extensão compatível com sua versão do OpenCart, e faça o download do arquivo "ocmod-editor.ocmod.zip".
  3. Na administração da loja acesse o menu **Extensões→Instalador** (Extensions→Installer), clique no botão **Upload** e selecione o arquivo 'ocmod-editor.ocmod.zip', e aguarde a conclusão da instalação automática.
- 5. Após a instalação, acesse o menu **Extensões→Modificações** (Extensions→Modifications) e clique no botão **Atualizar** (Refresh), para que a modificação instalada seja adicionada na loja, lembrando que não é o botão "Atualizar" do navegador, e sim o botão "Atualizar" na cor azul ao lado do botão laranja e vermelho na tela do próprio OpenCart.
+ 5. Após a instalação, acesse o menu **Extensões→Modificações** (Extensions→Modifications) e clique 2x no botão **Atualizar** (Refresh), para que a modificação instalada seja adicionada na loja, lembrando que não é o botão "Atualizar" do navegador, e sim o botão "Atualizar" na cor azul ao lado do botão laranja e vermelho na tela do próprio OpenCart.
 
 ### Desinstalação
 
-Para desinstalar a modificação, na administração da loja, acesse o menu **Extensões→Modificações** (Extensions→Modifications),  localize e selecione a modificação com o nome '**OCMOD Editor for OpenCart**', depois clique no botão **Excluir** (Delete), e depois no botão **Atualizar** (Refresh).
+Para desinstalar a modificação, na administração da loja, acesse o menu **Extensões→Modificações** (Extensions→Modifications),  localize e selecione a modificação com o nome '**OCMOD Editor for OpenCart**', depois clique no botão **Excluir** (Delete), e depois no 2x botão **Atualizar** (Refresh).
 
 ### Atualização
 
@@ -39,7 +41,7 @@ O OCMOD (OpenCart Modification) é nativo do OpenCart, ou seja, não é necessá
 
 https://github.com/opencart/opencart/wiki/Modification-System
 
-[versao-badge]: https://img.shields.io/badge/versão-3.0.0-blue.svg
+[versao-badge]: https://img.shields.io/badge/versão-3.1.0-blue.svg
 [CHANGELOG]: ./CHANGELOG.md
 [licenca-badge]: https://img.shields.io/badge/licença-GPLv3-blue.svg
 [LICENSE]: ./LICENSE
