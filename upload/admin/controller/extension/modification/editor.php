@@ -159,8 +159,9 @@ EOT;
                             $item = $dom->getElementsByTagName($tag)->item(0);
 
                             if ($item) {
-                                if (!empty(trim($item->nodeValue))) {
-                                    $modification_data[$tag] = $item->nodeValue;
+                                $node = trim($item->nodeValue);
+                                if ($node) {
+                                    $modification_data[$tag] = $node;
                                 } else {
                                     $json['error'] = $this->language->get('error_'.$tag.'_value');
                                     break;
