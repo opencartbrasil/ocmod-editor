@@ -16,10 +16,6 @@ Esta extensão foi desenvolvida no formato OCMOD, e tem o objetivo de habilitar 
 - Validar todos os arquivos XML no formato OCMOD e gera log de erros amigável.
 - Visualizar uma lista com todos os arquivos que foram modificados por OCMOD.
 
-Caso deseje doar um valor para contribuir com este trabalho continuo e sempre gratuito, clique no botão abaixo:
-
-[![alt tag](https://www.paypalobjects.com/pt_BR/BR/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7G9TR9PXS6G5J)
-
 ### Instalação
 
  1. Acesse o link: https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=22015.
