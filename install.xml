@@ -2,7 +2,7 @@
 <modification>
   <name>OCMOD Editor for OpenCart 3.0</name>
   <code>ocmod-editor</code>
-  <version>3.1.1</version>
+  <version>3.1.2</version>
   <author>OpenCart Brasil</author>
   <link>http://www.opencartbrasil.com.br</link>
   <file path="admin/controller/startup/permission.php">
