@@ -141,7 +141,7 @@
           $('.panel-default').before('<div class="alert alert-danger" role="alert">'+json['error']+'</div>');
         } else {
           $('.panel-default').before('<div class="alert alert-success" role="alert">'+json['success']+'</div>');
-          if (id == 0) { location.href = 'index.php?route=extension/modification&user_token={{ user_token }}'; }
+          if (id == 0) { location.href = 'index.php?route=marketplace/modification&user_token={{ user_token }}'; }
         }
       },
       error: function(xhr, ajaxOptions, thrownError) {
