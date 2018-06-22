@@ -28,7 +28,7 @@
               {% if modified_files %}
               {% for modified_file in modified_files %}
               <tr>
-                <td style="vertical-align:top">{{ modified_file.file }}</td>
+                <td style="vertical-align:top"><a href="{{ modified_file.view }}" target="_blank">{{ modified_file.file }}</a></td>
                 <td>
                   {% if modified_file.modifications %}
                   {% set i = 0 %}

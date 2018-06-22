@@ -41,13 +41,12 @@
     </div>
   </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript"><!--
-  var path = "view/javascript/ace";
-  var editorconfig = ace.require("ace/config");
-  editorconfig.set("workerPath", path);
-  var xml_editor = ace.edit("code");
-  xml_editor.setTheme("ace/theme/cobalt");
-  xml_editor.getSession().setMode("ace/mode/xml");
+  var editor = ace.edit("code");
+  editor.setTheme("ace/theme/cobalt");
+  editor.getSession().setMode("ace/mode/xml");
+
   $('#button-erase-theme').on('click', function() {
     $('.alert').remove();
     $.ajax({
@@ -123,7 +122,7 @@
   $('#button-save').on('click', function(){
     $('.alert').remove();
     var id = $('input[name="modification_id"]').val();
-    var xml_code = xml_editor.getValue();
+    var xml_code = editor.getValue();
     $.ajax({
       url: 'index.php?route=extension/modification/editor/save&user_token={{ user_token }}',
       type: 'post',

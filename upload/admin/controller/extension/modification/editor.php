@@ -5,8 +5,6 @@ class ControllerExtensionModificationEditor extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->document->addScript('view/javascript/ace/ace.js');
-
         $data['breadcrumbs'] = array();
 
         $data['breadcrumbs'][] = array(

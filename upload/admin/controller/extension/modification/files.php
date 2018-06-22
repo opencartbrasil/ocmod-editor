@@ -186,6 +186,7 @@ class ControllerExtensionModificationFiles extends Controller {
 
             $result[] = array(
                 'file' => $cache_file,
+                'view' => $this->url->link('extension/modification/diff', 'user_token=' . $this->session->data['user_token'] . '&file_patch=' . $cache_file, true),
                 'modifications' => $modifications
             );
         }
