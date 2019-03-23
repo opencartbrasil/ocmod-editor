@@ -10,3 +10,6 @@ $_['text_file']          = 'Arquivo';
 $_['text_modification']  = 'Modificação';
 $_['text_version']       = 'Versão';
 $_['text_author']        = 'Autor';
+
+// Button
+$_['button_return']      = 'Voltar para modificações';

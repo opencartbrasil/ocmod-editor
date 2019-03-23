@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <modification>
-  <name>OCMOD Editor for OpenCart 3.0</name>
+  <name>OCMOD Editor for OpenCart 3.0.x</name>
   <code>ocmod-editor</code>
-  <version>3.2.0</version>
+  <version>3.3.0</version>
   <author>OpenCart Brasil</author>
   <link>http://www.opencartbrasil.com.br</link>
   <file path="admin/controller/startup/permission.php">
@@ -15,15 +15,17 @@
     <operation>
       <search><![CDATA[public function index() {]]></search>
       <add position="after"><![CDATA[
-        $this->load->model('user/user_group');
-        $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/editor');
-        $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/editor');
-        $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/error_log');
-        $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/error_log');
-        $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/files');
-        $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/files');
-        $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/diff');
-        $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/diff');
+        if (!$this->user->hasPermission('modify', 'extension/modification/diff')) {
+            $this->load->model('user/user_group');
+            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/editor');
+            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/editor');
+            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/error_log');
+            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/error_log');
+            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/files');
+            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/files');
+            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/diff');
+            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/diff');
+        }
       ]]></add>
     </operation>
     <operation>

@@ -7,7 +7,7 @@ $_['text_modifications'] = 'Modificações';
 $_['text_help_diff']     = '<strong>Ajuda:</strong><br>Na esquerda o arquivo original e na direita o arquivo modificado.';
 
 // Button
-$_['button_return']      = 'Voltar para modificações';
+$_['button_return']      = 'Voltar para arquivos modificados';
 
 // Error
 $_['error_permission']   = 'Atenção: Você não possui permissão para visualizar arquivos modificados!';

@@ -3,7 +3,7 @@ class ControllerExtensionModificationFiles extends Controller {
     private $error = array();
 
     public function index() {
-        $this->load->language('extension/modification/files');
+        $data = $this->load->language('extension/modification/files');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -53,6 +53,8 @@ class ControllerExtensionModificationFiles extends Controller {
         );
 
         $data['modified_files'] = $this->getModifiedFiles();
+
+        $data['return'] = $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true);
 
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');

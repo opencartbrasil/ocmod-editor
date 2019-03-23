@@ -3,7 +3,7 @@ class ControllerExtensionModificationDiff extends Controller {
     public function index() {
         $this->validate();
 
-        $this->load->language('extension/modification/diff');
+        $data = $this->load->language('extension/modification/diff');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -51,13 +51,7 @@ class ControllerExtensionModificationDiff extends Controller {
             $this->response->redirect($this->url->link('extension/modification', 'user_token=' . $this->session->data['user_token'], true));
         }
 
-        $data['heading_title'] = $this->language->get('heading_title');
-
-        $data['text_help_diff'] = $this->language->get('text_help_diff');
-
-        $data['button_return'] = $this->language->get('button_return');
-
-        $data['return'] = $this->url->link('extension/modification', 'user_token=' . $this->session->data['user_token'], true);
+        $data['return'] = $this->url->link('extension/modification/files', 'user_token=' . $this->session->data['user_token'], true);
 
         $data['user_token'] = $this->session->data['user_token'];
 

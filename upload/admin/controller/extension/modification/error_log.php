@@ -3,7 +3,7 @@ class ControllerExtensionModificationErrorLog extends Controller {
     private $error = array();
 
     public function index() {
-        $this->load->controller('extension/modification/editor/refresh');
+        $data = $this->load->controller('extension/modification/editor/refresh');
 
         $this->load->language('extension/modification/error_log');
 
@@ -54,6 +54,7 @@ class ControllerExtensionModificationErrorLog extends Controller {
             'href' => $this->url->link('extension/modification/error_log', 'user_token=' . $this->session->data['user_token'], true)
         );
 
+        $data['return'] = $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true);
         $data['download'] = $this->url->link('extension/modification/error_log/download', 'user_token=' . $this->session->data['user_token'], true);
         $data['clear'] = $this->url->link('extension/modification/error_log/clear', 'user_token=' . $this->session->data['user_token'], true);
 
