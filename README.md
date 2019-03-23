@@ -1,8 +1,8 @@
-[![version][versao-badge]][CHANGELOG] [![license][licenca-badge]][LICENSE]
+[![license][licenca-badge]][LICENSE]
 
 ### Apresentação
 
-Esta extensão foi desenvolvida no formato OCMOD, e tem o objetivo de habilitar na administração do OpenCart funcionalidades para criar, editar e gerenciar arquivos XML no formato OCMOD, além de possuir recursos úteis que são utilizados em atividades rotineiras durante o processo de implantação e ajuste da loja.
+Esta modificação foi desenvolvida no formato OCMOD, e tem o objetivo de habilitar na administração do OpenCart funcionalidades para criar, editar e gerenciar arquivos XML no formato OCMOD, além de possuir recursos úteis que são utilizados em atividades rotineiras durante o processo de implantação e ajuste da loja.
 
 **As seguintes funcionalidades serão adicionadas no menu Extensões→Modificações:**
 
@@ -39,7 +39,5 @@ O OCMOD (OpenCart Modification) é nativo do OpenCart, ou seja, não é necessá
 
 https://github.com/opencart/opencart/wiki/Modification-System
 
-[versao-badge]: https://img.shields.io/badge/versão-3.2.0-blue.svg
-[CHANGELOG]: ./CHANGELOG.md
 [licenca-badge]: https://img.shields.io/badge/licença-GPLv3-blue.svg
 [LICENSE]: ./LICENSE
