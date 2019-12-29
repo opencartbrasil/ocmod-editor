@@ -16,7 +16,7 @@ class ControllerExtensionModificationDiff extends Controller {
 
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_modifications'),
-            'href' => $this->url->link('extension/modification', 'user_token=' . $this->session->data['user_token'], true)
+            'href' => $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true)
         );
 
         $this->document->addStyle('view/javascript/ace/diff.min.css');
@@ -45,10 +45,10 @@ class ControllerExtensionModificationDiff extends Controller {
                     'href' => $this->url->link('extension/modification/diff', 'user_token=' . $this->session->data['user_token'] . '&file_patch=' . $file_patch, true)
                 );
             } else {
-                $this->response->redirect($this->url->link('extension/modification', 'user_token=' . $this->session->data['user_token'], true));
+                $this->response->redirect($this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true));
             }
         } else {
-            $this->response->redirect($this->url->link('extension/modification', 'user_token=' . $this->session->data['user_token'], true));
+            $this->response->redirect($this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true));
         }
 
         $data['return'] = $this->url->link('extension/modification/files', 'user_token=' . $this->session->data['user_token'], true);
@@ -64,7 +64,7 @@ class ControllerExtensionModificationDiff extends Controller {
 
     private function validate() {
         if (!$this->user->hasPermission('modify', 'extension/modification/diff')) {
-            $this->response->redirect($this->url->link('extension/modification', 'user_token=' . $this->session->data['user_token'], true));
+            $this->response->redirect($this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true));
         }
     }
 }
