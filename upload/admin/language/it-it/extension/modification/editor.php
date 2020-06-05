@@ -1,47 +1,47 @@
 <?php
 // Heading
-$_['heading_title']         = 'Modification Editor';
+$_['heading_title']         = 'Editor di modifiche';
 
 // Text
-$_['text_success_edit']     = 'Success: You have modified modification and update modification cache!';
-$_['text_success_add']      = 'Success: You have add modification and update modification cache!';
-$_['text_erase_theme']      = 'Success: Erased twig/sass cache!';
-$_['text_erase_data']       = 'Success: Erased database file cache!';
-$_['text_erase_image']      = 'Success: Erased images cache!';
-$_['text_loading']          = 'Saving...';
-$_['text_erasing']          = 'Erasing...';
-$_['text_modifications']    = 'Modifications';
-$_['text_new']              = 'New modification';
-$_['text_help_ocmod']       = '<strong>Help:</strong><br><a href="https://github.com/opencart/opencart/wiki/Modification-System" target="_blank" rel="Manual Sys">Click here</a> to access the complete OpenCart Modification System help.';
+$_['text_success_edit']     = 'Operazione riuscita: hai modificato le modifiche e aggiorna la cache delle modifiche!';
+$_['text_success_add']      = 'Operazione riuscita: hai aggiunto modifiche e aggiorna la cache delle modifiche!';
+$_['text_erase_theme']      = 'Operazione riuscita: cache ramificata / sass cancellata!';
+$_['text_erase_data']       = 'Operazione riuscita: cache dei file di database cancellata!';
+$_['text_erase_image']      = 'Operazione riuscita: cache delle immagini cancellate!';
+$_['text_loading']          = 'Salvataggio...';
+$_['text_erasing']          = 'Eliminazione...';
+$_['text_modifications']    = 'Modificatori';
+$_['text_new']              = 'Nuovo modificatore';
+$_['text_help_ocmod']       = '<strong>Aiuto:</strong><br><a href="https://github.com/opencart/opencart/wiki/Modification-System" target="_blank" rel="Manual Sys">clicca qui</a> per accedere alla guida completa del sistema di modifica OpenCart.';
 $_['text_xml_code']         = 'XML Code';
 
 // Button
 $_['button_log_error']      = 'Log error';
-$_['button_files']          = 'Modified files';
-$_['button_new']            = 'New modification';
-$_['button_edit']           = 'Edit modification';
-$_['button_download']       = 'Download XML file';
-$_['button_erase_theme']    = 'Erase twig/sass cache';
-$_['button_erase_data']     = 'Erase database file cache';
-$_['button_erase_image']    = 'Erase images cache';
-$_['button_save']           = 'Save modification';
-$_['button_return']         = 'Return modifications';
+$_['button_files']          = 'Modifica file';
+$_['button_new']            = 'Nuovo Modificatore';
+$_['button_edit']           = 'Modifica il modificatore';
+$_['button_download']       = 'Scarica il XML file';
+$_['button_erase_theme']    = 'Cancella twig/sass cache';
+$_['button_erase_data']     = 'Cancella database file cache';
+$_['button_erase_image']    = 'Cancella la cache delle immagini';
+$_['button_save']           = 'Salva il modificatore';
+$_['button_return']         = 'Restituisci modifiche';
 
 // Error
-$_['error_permission']      = 'Warning: You do not have permission to modify Modifications!';
-$_['error_name_tag']        = 'You have not added name tag!';
-$_['error_name_value']      = 'Name tag can not be empty!';
-$_['error_code_tag']        = 'You have not added code tag!';
-$_['error_code_value']      = 'Code tag can not be empty!';
-$_['error_author_tag']      = 'You have not added author tag!';
-$_['error_author_value']    = 'Author tag can not be empty!';
-$_['error_version_tag']     = 'You have not added version tag!';
-$_['error_version_value']   = 'Version tag can not be empty!';
-$_['error_link_tag']        = 'You have not added link tag!';
-$_['error_link_value']      = 'Link tag can not be empty!';
-$_['error_file_tag']        = 'You have not added file tag!';
-$_['error_modification_id'] = 'Modification id is not valid!';
-$_['error_code_used']       = 'Modification %s is using the same code!';
-$_['error_xml']             = 'XML is not valid!';
-$_['error_file']            = 'XML not found!';
-$_['error_headers']         = 'Error: Headers already sent out!';
+$_['error_permission']      = 'Attenzione: non sei autorizzato a modificare le modifiche!';
+$_['error_name_tag']        = 'Non hai aggiunto l\'etichetta nome!';
+$_['error_name_value']      = 'Il tag del nome non può essere vuoto!';
+$_['error_code_tag']        = 'Non hai aggiunto tag di codice!';
+$_['error_code_value']      = 'Il tag del codice non può essere vuoto!';
+$_['error_author_tag']      = 'Non hai aggiunto tag autore!';
+$_['error_author_value']    = 'Il tag autore non può essere vuoto!';
+$_['error_version_tag']     = 'Non hai aggiunto tag di versione!';
+$_['error_version_value']   = 'Il tag della versione non può essere vuoto!';
+$_['error_link_tag']        = 'Non hai aggiunto tag link!';
+$_['error_link_value']      = 'Il tag di collegamento non può essere vuoto!';
+$_['error_file_tag']        = 'Non hai aggiunto il tag file!';
+$_['error_modification_id'] = 'L\'ID modifica non è valido!';
+$_['error_code_used']       = 'La modifica %s sta usando lo stesso codice!';
+$_['error_xml']             = 'XML Non valido';
+$_['error_file']            = 'XML Non trovato!';
+$_['error_headers']         = 'Errore: intestazioni già inviate!';
