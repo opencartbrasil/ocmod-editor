@@ -27,4 +27,72 @@ class ModelExtensionModificationEditor extends Model {
     public function editModification($modification_id, $data) {
         $this->db->query("UPDATE " . DB_PREFIX . "modification SET code = '" . $this->db->escape($data['code']) . "', name = '" . $this->db->escape($data['name']) . "', author = '" . $this->db->escape($data['author']) . "', version = '" . $this->db->escape($data['version']) . "', link = '" . $this->db->escape($data['link']) . "', xml = '" . $this->db->escape($data['xml']) . "' WHERE modification_id = '" . (int)$modification_id . "'");
     }
+
+    public function getTotalSearchModificationElement($data = array()) {
+        $sql = "SELECT COUNT(*) AS total FROM " . DB_PREFIX . "modification";
+
+        $implode = array();
+
+        if (!empty($data['search_query'])) {
+            $implode[] = "xml LIKE '%" . $this->db->escape($data['search_query']) . "%'";
+        }
+
+        if ($implode) {
+            $sql .= " WHERE " . implode(" AND ", $implode);
+        }
+
+        $query = $this->db->query($sql);
+
+        return $query->row['total'];
+    }
+
+    public function searchModificationElement($data = array()) {
+        $sql = "SELECT * FROM " . DB_PREFIX . "modification";
+
+        $implode = array();
+
+        if (!empty($data['search_query'])) {
+            $implode[] = "xml LIKE '%" . $this->db->escape($data['search_query']) . "%'";
+        }
+
+        if ($implode) {
+            $sql .= " WHERE " . implode(" AND ", $implode);
+        }
+
+        $sort_data = array(
+            'name',
+            'code',
+            'version',
+            'author',
+            'date_added'
+        );
+
+        if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
+            $sql .= " ORDER BY " . $data['sort'];
+        } else {
+            $sql .= " ORDER BY name";
+        }
+
+        if (isset($data['order']) && ($data['order'] == 'DESC')) {
+            $sql .= " DESC";
+        } else {
+            $sql .= " ASC";
+        }
+
+        if (isset($data['start']) || isset($data['limit'])) {
+            if ($data['start'] < 0) {
+                $data['start'] = 0;
+            }
+
+            if ($data['limit'] < 1) {
+                $data['limit'] = 20;
+            }
+
+            $sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+        }
+
+        $query = $this->db->query($sql);
+
+        return $query->rows;
+    }
 }
