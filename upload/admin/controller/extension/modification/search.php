@@ -78,10 +78,9 @@ class ControllerExtensionModificationSearch extends Controller
         );
 
         $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('text_serach'),
+            'text' => $this->language->get('text_search'),
             'href' => $this->url->link('marketplace/modification/search', 'user_token=' . $this->session->data['user_token'] . $url, true)
         );
-
 
         $url = '';
 
