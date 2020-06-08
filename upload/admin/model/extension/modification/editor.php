@@ -34,7 +34,11 @@ class ModelExtensionModificationEditor extends Model {
         $implode = array();
 
         if (!empty($data['search_query'])) {
-            $implode[] = "xml LIKE '%" . $this->db->escape($data['search_query']) . "%'";
+            $query_search = htmlspecialchars_decode($data['search_query']);
+            $search_exploded = explode ( " ", $query_search );
+            foreach( $search_exploded as $search_each ) {
+                $implode[] = "xml LIKE '%" . $this->db->escape($search_each) . "%'";
+            }
         }
 
         if ($implode) {
@@ -52,7 +56,11 @@ class ModelExtensionModificationEditor extends Model {
         $implode = array();
 
         if (!empty($data['search_query'])) {
-            $implode[] = "xml LIKE '%" . $this->db->escape($data['search_query']) . "%'";
+            $query_search = htmlspecialchars_decode($data['search_query']);
+            $search_exploded = explode( " ", $query_search );
+            foreach( $search_exploded as $search_each ) {
+                $implode[] = "xml LIKE '%" . $this->db->escape($search_each) . "%'";
+            }
         }
 
         if ($implode) {
