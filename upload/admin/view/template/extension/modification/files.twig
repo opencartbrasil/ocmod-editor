@@ -38,6 +38,7 @@
                   {% for modification in modified_file.modifications %}
                   {% if i > 0 %}<br /><br />{% endif %}
                   <strong>{{ text_modification }}</strong> {{ modification.name }}<br />
+                  <strong>{{ text_ocmod_zip }}</strong> {{ modification.ocmod_zip_name }}<br />
                   <strong>{{ text_version }}</strong> {{ modification.version }}<br />
                   <strong>{{ text_author }}</strong> {{ modification.author }}
                   {% set i = i + 1 %}

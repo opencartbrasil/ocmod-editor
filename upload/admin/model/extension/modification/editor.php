@@ -103,4 +103,10 @@ class ModelExtensionModificationEditor extends Model {
 
         return $query->rows;
     }
+
+    public function getExtensionInstallByExtensionInstallId($extension_install_id) {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension_install` WHERE `extension_install_id` = '" . (int)$extension_install_id . "'");
+
+        return $query->row;
+    }
 }
