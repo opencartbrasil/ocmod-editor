@@ -127,7 +127,7 @@
       url: 'index.php?route=extension/modification/editor/save&user_token={{ user_token }}',
       type: 'post',
       dataType: 'json',
-      data: { modification_id: id, xml: xml_code },
+      data: { modification_id: id, xml: btoa(xml_code) },
       cache: false,
       beforeSend: function() {
         $('#button-save').button('loading');

@@ -133,7 +133,7 @@ EOT;
         if (!$this->user->hasPermission('modify', 'extension/modification/editor')) {
             $json['error'] = $this->language->get('error_permission');
         } else {
-            $xml = html_entity_decode($this->request->post['xml']);
+            $xml = base64_decode($this->request->post['xml']);
 
             if ($xml) {
                 if ($this->validate_xml($xml)) {
