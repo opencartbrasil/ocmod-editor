@@ -10,6 +10,8 @@ $_['text_file']          = 'File';
 $_['text_modification']  = 'Modificatori';
 $_['text_version']       = 'Versione';
 $_['text_author']        = 'Autore';
+$_['text_ocmod_zip']     = 'Xml Nome';
+$_['no_file_presence']   = 'File zip non presente';
 
 // Button
 $_['button_return']      = 'Restituisci modifiche';

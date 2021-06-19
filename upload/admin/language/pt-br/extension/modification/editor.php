@@ -14,6 +14,8 @@ $_['text_modifications']    = 'Modificações';
 $_['text_new']              = 'Nova modificação';
 $_['text_help_ocmod']       = '<strong>Ajuda:</strong><br><a href="https://github.com/opencart/opencart/wiki/Modification-System" target="_blank" rel="Manual do OCMOD">Clique aqui</a> para acessar o manual completo do Sistema de Modificações do OpenCart.';
 $_['text_xml_code']         = 'Código XML';
+// todo translate pls :D
+$_['no_file_presence']      = 'zip file does not exist';
 
 // Button
 $_['button_log_error']      = 'Log de erros';

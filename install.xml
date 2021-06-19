@@ -15,6 +15,7 @@
     <operation>
       <search><![CDATA[public function index() {]]></search>
       <add position="after"><![CDATA[
+        $this->load->model('extension/modification/editor');
         if (!$this->user->hasPermission('modify', 'extension/modification/diff')) {
             $this->load->model('user/user_group');
             $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/editor');
@@ -44,6 +45,7 @@
       <add position="after"><![CDATA[
         'edit' => $this->url->link('extension/modification/editor', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'], true),
         'download' => $this->url->link('extension/modification/editor/download', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'], true),
+        'file_url' => (isset($this->model_extension_modification_editor->getExtensionInstallByExtensionInstallId($result['extension_install_id'])['filename']))? $this->model_extension_modification_editor->getExtensionInstallByExtensionInstallId($result['extension_install_id'])['filename'] : $this->language->get('no_file_presence'),
       ]]></add>
     </operation>
     <operation>
@@ -73,6 +75,15 @@
         <a href="{{ modification.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
         <a href="{{ modification.download }}" data-toggle="tooltip" title="{{ button_download }}" class="btn btn-success"><i class="fa fa-cloud-download"></i></a>
       ]]></add>
+    </operation>
+    <operation>
+      <search><![CDATA[<td class="text-left">{% if sort == 'author' %}]]></search>
+      <add position="before"><![CDATA[<td class="text-left">Zip</td>]]>
+      </add>
+    </operation>
+    <operation>
+      <search><![CDATA[<td class="text-left">{{ modification.name }}</td>]]></search>
+      <add position="after"><![CDATA[<td class="text-left">{{ modification.file_url }}</td>]]></add>
     </operation>
   </file>
 </modification>

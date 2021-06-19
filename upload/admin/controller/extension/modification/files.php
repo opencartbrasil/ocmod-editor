@@ -104,7 +104,15 @@ class ControllerExtensionModificationFiles extends Controller {
             $xml[] = $result['xml'];
         }
 
+        $xml_array_count = 0; // not 0 because the first is system modification
+
         foreach ($xml as $xml) {
+
+            $info_xml = [];
+
+            if ($xml_array_count > 0) {$info_xml = $results[$xml_array_count - 1];}
+            $xml_array_count++;
+
             if (empty($xml)){ continue; }
 
             $dom = new DOMDocument('1.0', 'UTF-8');
@@ -160,6 +168,7 @@ class ControllerExtensionModificationFiles extends Controller {
                                 $result[$file][] = array(
                                     'code' => $dom->getElementsByTagName('code')->item(0)->textContent,
                                     'name' => $dom->getElementsByTagName('name')->item(0)->textContent,
+                                    'ocmod_zip_name' => (isset($this->model_extension_modification_editor->getExtensionInstallByExtensionInstallId($info_xml['extension_install_id'])['filename']))? $this->model_extension_modification_editor->getExtensionInstallByExtensionInstallId($info_xml['extension_install_id'])['filename'] : $this->language->get('no_file_presence'),
                                     'version' => $version,
                                     'author' => $author
                                 );

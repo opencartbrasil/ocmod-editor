@@ -45,6 +45,7 @@ class ControllerExtensionModificationSearch extends Controller
         $data['modifications'] = array();
 
         if (!empty($search_query)){
+
             $modification_total = $this->model_extension_modification_editor->getTotalSearchModificationElement($filter_data);
 
             $modifications = $this->model_extension_modification_editor->searchModificationElement($filter_data);
@@ -78,9 +79,10 @@ class ControllerExtensionModificationSearch extends Controller
         );
 
         $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('text_search'),
+            'text' => $this->language->get('text_serach'),
             'href' => $this->url->link('marketplace/modification/search', 'user_token=' . $this->session->data['user_token'] . $url, true)
         );
+
 
         $url = '';
 
