@@ -4,7 +4,7 @@
   <code>ocmod-editor</code>
   <version>3.3.2</version>
   <author>OpenCart Brasil</author>
-  <link>http://www.opencartbrasil.com.br</link>
+  <link>https://www.opencartbrasil.com.br</link>
   <file path="admin/controller/startup/permission.php">
     <operation>
       <search><![CDATA[$extension = array(]]></search>
