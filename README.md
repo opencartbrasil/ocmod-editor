@@ -2,7 +2,7 @@
 
 ### Apresentação
 
-Esta modificação foi desenvolvida no formato OCMOD, e tem o objetivo de habilitar na administração do OpenCart funcionalidades para criar, editar e gerenciar arquivos XML no padrão OCMOD, além de possuir recursos úteis que são utilizados em atividades rotineiras durante o processo de implantação e ajustes da loja.
+Esta modificação foi desenvolvida no padrão OCMOD, e tem o objetivo de habilitar na administração do OpenCart funcionalidades para criar, editar e gerenciar arquivos XML no padrão OCMOD, além de possuir recursos úteis que são utilizados em atividades rotineiras durante o processo de implantação e ajustes da loja.
 
 **As seguintes funcionalidades são adicionadas no menu Extensões→Modificações:**
 
