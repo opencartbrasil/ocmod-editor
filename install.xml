@@ -17,7 +17,7 @@
       <add position="after"><![CDATA[
         $this->load->model('extension/modification/editor');
 
-        if (!$this->user->hasPermission('modify', 'extension/modification/diff')) {
+        if (!$this->user->hasPermission('modify', 'extension/modification/search')) {
             $this->load->model('user/user_group');
             $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/editor');
             $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/editor');
