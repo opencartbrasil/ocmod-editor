@@ -10,9 +10,8 @@ $_['text_file']          = 'Arquivo';
 $_['text_modification']  = 'Modificação';
 $_['text_version']       = 'Versão';
 $_['text_author']        = 'Autor';
-// todo translate pls :D
-$_['text_ocmod_zip']     = 'Xml File Name';
-$_['no_file_presence']   = 'zip file does not exist';
+$_['text_ocmod_zip']     = 'Nome do arquivo XML';
+$_['no_file_presence']   = 'O arquivo zip não existe';
 
 // Button
-$_['button_return']      = 'Voltar para modificações';
+$_['button_return']      = 'Voltar';

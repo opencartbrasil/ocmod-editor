@@ -34,15 +34,15 @@
       </div>
     </div>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js" type="text/javascript" charset="utf-8"></script>
+  <script src="view/javascript/ace/diff.min.js"></script>
+  <script type="text/javascript">
+    var aceDiffer = new AceDiff({
+      mode: "ace/mode/php",
+      theme: "ace/theme/chrome",
+      left: { editable: false },
+      right: { editable: false }
+    });
+  </script>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js" type="text/javascript" charset="utf-8"></script>
-<script src="view/javascript/ace/diff.min.js"></script>
-<script type="text/javascript"><!--
-  var aceDiffer = new AceDiff({
-    mode: "ace/mode/php",
-    theme: "ace/theme/chrome",
-    left: { editable: false },
-    right: { editable: false }
-  });
-//--></script> 
 {{ footer }}

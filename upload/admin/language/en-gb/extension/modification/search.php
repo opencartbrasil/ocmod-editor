@@ -1,26 +1,27 @@
 <?php
-
 // Heading
-$_['heading_title'] = 'Search code on modification xml file';
+$_['heading_title']       = 'Search code on XML';
 
 // Text
-$_['text_modifications'] = 'Modifications';
-$_['text_search'] = 'Search';
-$_['text_no_results'] = 'No files modified by OCMOD.';
-$_['text_file'] = 'File';
-$_['text_modification'] = 'Modification';
-$_['text_version'] = 'Version';
-$_['text_author'] = 'Author';
+$_['text_modifications']  = 'Modifications';
+$_['text_search']         = 'Search code on XML';
+$_['text_no_results']     = 'No results.';
+$_['text_file']           = 'File';
+$_['text_modification']   = 'Modification';
+$_['text_version']        = 'Version';
+$_['text_author']         = 'Author';
+$_['text_search']         = 'Search code on XML';
+$_['text_list']           = 'Search compatible list';
 
+// Entry
+$_['entry_name']          = 'Code snippet';
+$_['entry_search_name']   = 'Insert code here';
 
-$_['text_search'] = 'Search code on xml';
-$_['entry_name'] = 'Code';
-$_['entry_search_name'] = 'Insert code here';
-$_['button_search_query'] = 'Search code on xml';
-$_['text_list'] = 'List xml compatibile';
-$_['column_name'] = 'Name';
-$_['column_date_added'] = 'Date Added';
-$_['column_action'] = 'Actions';
+// Column
+$_['column_name']         = 'Modification';
+$_['column_date_added']   = 'Date Added';
+$_['column_action']       = 'Action';
 
 // Button
-$_['button_return'] = 'Return modifications';
+$_['button_return']       = 'Return';
+$_['button_search_query'] = 'Search';

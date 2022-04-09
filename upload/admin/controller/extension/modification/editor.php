@@ -171,7 +171,7 @@ EOT;
                         }
 
                         $file_tag = $dom->getElementsByTagName('file');
-                        if ($file_tag->length == 0) { 
+                        if ($file_tag->length == 0) {
                             $json['error'] = $this->language->get('error_file_tag');
                         }
 
@@ -244,16 +244,16 @@ EOT;
             $json['error'] = $this->language->get('error_permission');
         } else {
             $file = DIR_APPLICATION  . 'view/stylesheet/bootstrap.css';
-            
+
             if (is_file($file) && is_file(DIR_APPLICATION . 'view/stylesheet/sass/_bootstrap.scss')) {
                 unlink($file);
             }
-             
+
             $files = glob(DIR_CATALOG  . 'view/theme/*/stylesheet/sass/_bootstrap.scss');
-             
+
             foreach ($files as $file) {
                 $file = substr($file, 0, -21) . '/bootstrap.css';
-                
+
                 if (is_file($file)) {
                     unlink($file);
                 }
@@ -264,13 +264,13 @@ EOT;
             if ($directories) {
                 foreach ($directories as $directory) {
                     $files = glob($directory . '/*');
-                    
-                    foreach ($files as $file) { 
+
+                    foreach ($files as $file) {
                         if (is_file($file)) {
                             unlink($file);
                         }
                     }
-                    
+
                     if (is_dir($directory)) {
                         rmdir($directory);
                     }
@@ -399,7 +399,7 @@ EOT;
             if (empty($xml)){
                 continue;
             }
-            
+
             $dom = new DOMDocument('1.0', 'UTF-8');
             $dom->preserveWhiteSpace = false;
             $dom->loadXml($xml);

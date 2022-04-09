@@ -40,113 +40,117 @@
       </div>
     </div>
   </div>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript"><!--
-  var editor = ace.edit("code");
-  editor.setTheme("ace/theme/cobalt");
-  editor.getSession().setMode("ace/mode/xml");
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    var editor = ace.edit("code");
 
-  $('#button-erase-theme').on('click', function() {
-    $('.alert').remove();
-    $.ajax({
-      url: 'index.php?route=extension/modification/editor/erase_cache_theme&user_token={{ user_token }}',
-      dataType: 'json',
-      cache: false,
-      beforeSend: function() {
-        $('#button-erase-theme').button('loading');
-      },
-      complete: function() {
-        $('#button-erase-theme').button('reset');
-      },
-      success: function(json) {
-        if (json['error']) {
-          $('.panel-default').before('<div class="alert alert-danger" role="alert">'+json['error']+'</div>');
-        } else {
-          $('.panel-default').before('<div class="alert alert-success" role="alert">'+json['success']+'</div>');
+    editor.setTheme("ace/theme/cobalt");
+    editor.getSession().setMode("ace/mode/xml");
+
+    $('#button-erase-theme').on('click', function() {
+      $('.alert').remove();
+      $.ajax({
+        url: 'index.php?route=extension/modification/editor/erase_cache_theme&user_token={{ user_token }}',
+        dataType: 'json',
+        cache: false,
+        beforeSend: function() {
+          $('#button-erase-theme').button('loading');
+        },
+        complete: function() {
+          $('#button-erase-theme').button('reset');
+        },
+        success: function(json) {
+          if (json['error']) {
+            $('.panel-default').before('<div class="alert alert-danger" role="alert">'+json['error']+'</div>');
+          } else {
+            $('.panel-default').before('<div class="alert alert-success" role="alert">'+json['success']+'</div>');
+          }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+          alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
         }
-      },
-      error: function(xhr, ajaxOptions, thrownError) {
-        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-      }
+      });
     });
-  });
-  $('#button-erase-data').on('click', function() {
-    $('.alert').remove();
-    $.ajax({
-      url: 'index.php?route=extension/modification/editor/erase_cache_data&user_token={{ user_token }}',
-      dataType: 'json',
-      cache: false,
-      beforeSend: function() {
-        $('#button-erase-data').button('loading');
-      },
-      complete: function() {
-        $('#button-erase-data').button('reset');
-      },
-      success: function(json) {
-        if (json['error']) {
-          $('.panel-default').before('<div class="alert alert-danger" role="alert">'+json['error']+'</div>');
-        } else {
-          $('.panel-default').before('<div class="alert alert-success" role="alert">'+json['success']+'</div>');
+
+    $('#button-erase-data').on('click', function() {
+      $('.alert').remove();
+      $.ajax({
+        url: 'index.php?route=extension/modification/editor/erase_cache_data&user_token={{ user_token }}',
+        dataType: 'json',
+        cache: false,
+        beforeSend: function() {
+          $('#button-erase-data').button('loading');
+        },
+        complete: function() {
+          $('#button-erase-data').button('reset');
+        },
+        success: function(json) {
+          if (json['error']) {
+            $('.panel-default').before('<div class="alert alert-danger" role="alert">'+json['error']+'</div>');
+          } else {
+            $('.panel-default').before('<div class="alert alert-success" role="alert">'+json['success']+'</div>');
+          }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+          alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
         }
-      },
-      error: function(xhr, ajaxOptions, thrownError) {
-        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-      }
+      });
     });
-  });
-  $('#button-erase-image').on('click', function() {
-    $('.alert').remove();
-    $.ajax({
-      url: 'index.php?route=extension/modification/editor/erase_cache_image&user_token={{ user_token }}',
-      dataType: 'json',
-      cache: false,
-      beforeSend: function() {
-        $('#button-erase-image').button('loading');
-      },
-      complete: function() {
-        $('#button-erase-image').button('reset');
-      },
-      success: function(json) {
-        if (json['error']) {
-          $('.panel-default').before('<div class="alert alert-danger" role="alert">'+json['error']+'</div>');
-        } else {
-          $('.panel-default').before('<div class="alert alert-success" role="alert">'+json['success']+'</div>');
+
+    $('#button-erase-image').on('click', function() {
+      $('.alert').remove();
+      $.ajax({
+        url: 'index.php?route=extension/modification/editor/erase_cache_image&user_token={{ user_token }}',
+        dataType: 'json',
+        cache: false,
+        beforeSend: function() {
+          $('#button-erase-image').button('loading');
+        },
+        complete: function() {
+          $('#button-erase-image').button('reset');
+        },
+        success: function(json) {
+          if (json['error']) {
+            $('.panel-default').before('<div class="alert alert-danger" role="alert">'+json['error']+'</div>');
+          } else {
+            $('.panel-default').before('<div class="alert alert-success" role="alert">'+json['success']+'</div>');
+          }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+          alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
         }
-      },
-      error: function(xhr, ajaxOptions, thrownError) {
-        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-      }
+      });
     });
-  });
-  $('#button-save').on('click', function(){
-    $('.alert').remove();
-    var id = $('input[name="modification_id"]').val();
-    var xml_code = editor.getValue();
-    $.ajax({
-      url: 'index.php?route=extension/modification/editor/save&user_token={{ user_token }}',
-      type: 'post',
-      dataType: 'json',
-      data: { modification_id: id, xml: xml_code },
-      cache: false,
-      beforeSend: function() {
-        $('#button-save').button('loading');
-      },
-      complete: function() {
-        $('#button-save').button('reset');
-      },
-      success: function(json) {
-        if (json['error']) {
-          $('.panel-default').before('<div class="alert alert-danger" role="alert">'+json['error']+'</div>');
-        } else {
-          $('.panel-default').before('<div class="alert alert-success" role="alert">'+json['success']+'</div>');
-          if (id == 0) { location.href = 'index.php?route=marketplace/modification&user_token={{ user_token }}'; }
+
+    $('#button-save').on('click', function(){
+      $('.alert').remove();
+      var id = $('input[name="modification_id"]').val();
+      var xml_code = editor.getValue();
+      $.ajax({
+        url: 'index.php?route=extension/modification/editor/save&user_token={{ user_token }}',
+        type: 'post',
+        dataType: 'json',
+        data: { modification_id: id, xml: xml_code },
+        cache: false,
+        beforeSend: function() {
+          $('#button-save').button('loading');
+        },
+        complete: function() {
+          $('#button-save').button('reset');
+        },
+        success: function(json) {
+          if (json['error']) {
+            $('.panel-default').before('<div class="alert alert-danger" role="alert">'+json['error']+'</div>');
+          } else {
+            $('.panel-default').before('<div class="alert alert-success" role="alert">'+json['success']+'</div>');
+            if (id == 0) { location.href = 'index.php?route=marketplace/modification&user_token={{ user_token }}'; }
+          }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+          alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
         }
-      },
-      error: function(xhr, ajaxOptions, thrownError) {
-        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-      }
+      });
     });
-  });
-//--></script> 
+  </script>
+</div>
 {{ footer }}

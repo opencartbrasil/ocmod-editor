@@ -1,8 +1,6 @@
 <?php
-class ControllerExtensionModificationSearch extends Controller
-{
-    public function index()
-    {
+class ControllerExtensionModificationSearch extends Controller {
+    public function index() {
         $this->validate();
 
         $this->load->language('extension/modification/search');
@@ -34,32 +32,32 @@ class ControllerExtensionModificationSearch extends Controller
         $data['search_query'] = $search_query;
 
         $filter_data = array(
-            'search_query'      => $search_query,
-            'start'             => ($page - 1) * $this->config->get('config_limit_admin'),
-            'limit'             => $this->config->get('config_limit_admin')
+            'search_query' => $search_query,
+            'start' => ($page - 1) * $this->config->get('config_limit_admin'),
+            'limit' => $this->config->get('config_limit_admin')
         );
 
         $this->load->model('extension/modification/editor');
 
         $modification_total = 0;
+
         $data['modifications'] = array();
 
         if (!empty($search_query)){
-
             $modification_total = $this->model_extension_modification_editor->getTotalSearchModificationElement($filter_data);
 
             $modifications = $this->model_extension_modification_editor->searchModificationElement($filter_data);
 
             foreach ($modifications as $modification) {
                 $data['modifications'][] = array(
-                    'modification_id'       => $modification['modification_id'],
-                    'extension_install_id'  => $modification['extension_install_id'],
-                    'name'                  => $modification['name'],
-                    'code'                  => $modification['code'],
-                    'author'                => $modification['author'],
-                    'version'               => $modification['version'],
-                    'date_added'            => $modification['date_added'],
-                    'link_editor'           => $this->url->link('extension/modification/editor', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $modification['modification_id'] . $url, true)
+                    'modification_id' => $modification['modification_id'],
+                    'extension_install_id' => $modification['extension_install_id'],
+                    'name' => $modification['name'],
+                    'code' => $modification['code'],
+                    'author' => $modification['author'],
+                    'version' => $modification['version'],
+                    'date_added' => date($this->language->get('datetime_format'), strtotime($modification['date_added'])),
+                    'link_editor' => $this->url->link('extension/modification/editor', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $modification['modification_id'] . $url, true)
                 );
             }
         }
@@ -79,10 +77,9 @@ class ControllerExtensionModificationSearch extends Controller
         );
 
         $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('text_serach'),
+            'text' => $this->language->get('text_search'),
             'href' => $this->url->link('marketplace/modification/search', 'user_token=' . $this->session->data['user_token'] . $url, true)
         );
-
 
         $url = '';
 
@@ -115,8 +112,7 @@ class ControllerExtensionModificationSearch extends Controller
         $this->response->setOutput($this->load->view('extension/modification/search', $data));
     }
 
-    private function validate()
-    {
+    private function validate() {
         if (!$this->user->hasPermission('modify', 'extension/modification/search')) {
             $this->response->redirect($this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true));
         }

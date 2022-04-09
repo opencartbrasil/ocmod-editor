@@ -2,7 +2,7 @@
 <modification>
   <name>OCMOD Editor for OpenCart 3.0.x</name>
   <code>ocmod-editor</code>
-  <version>3.3.2</version>
+  <version>3.4.0</version>
   <author>OpenCart Brasil</author>
   <link>https://www.opencartbrasil.com.br</link>
   <file path="admin/controller/startup/permission.php">
@@ -77,13 +77,8 @@
       ]]></add>
     </operation>
     <operation>
-      <search><![CDATA[<td class="text-left">{% if sort == 'author' %}]]></search>
-      <add position="before"><![CDATA[<td class="text-left">Zip</td>]]>
-      </add>
-    </operation>
-    <operation>
       <search><![CDATA[<td class="text-left">{{ modification.name }}</td>]]></search>
-      <add position="after"><![CDATA[<td class="text-left">{{ modification.file_url }}</td>]]></add>
+      <add position="replace"><![CDATA[<td class="text-left"><b>{{ modification.name }}</b><br><small><i>{{ modification.file_url }}</i></small></td>]]></add>
     </operation>
   </file>
 </modification>
