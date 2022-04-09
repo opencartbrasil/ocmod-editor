@@ -14,7 +14,7 @@ Esta modificação foi desenvolvida no padrão OCMOD, e tem o objetivo de habili
 - Fazer download de qualquer arquivo XML no padrão OCMOD.
 - Pesquisar trechos de código em arquivos XML no padrão OCMOD.
 - Validar o preenchimento das tags obrigatórias no XML em padrão OCMOD.
-- Validar todos os arquivos XML no padrão OCMOD e gera log de erros amigável.
+- Validar todos os arquivos XML no padrão OCMOD e gerar log de erros amigável.
 - Visualizar em qual arquivo ocmod.zip a modificação OCMOD está vinculada.
 - Visualizar uma lista com todos os arquivos que foram modificados por OCMOD.
 - Comparar diferenças entre o arquivo original e o arquivo modificado utilizando o editor.
