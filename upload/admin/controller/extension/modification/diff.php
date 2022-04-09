@@ -62,6 +62,44 @@ class ControllerExtensionModificationDiff extends Controller {
         $this->response->setOutput($this->load->view('extension/modification/diff', $data));
     }
 
+    public function save() {
+        $json = array();
+
+        $this->load->language('extension/modification/diff');
+
+        if (!$this->user->hasPermission('modify', 'extension/modification/editor')) {
+            $json['error'] = $this->language->get('error_permission');
+        } else {
+            $file_patch = '';
+
+            if (isset($this->request->get['file_patch'])) {
+                $file_patch = $this->request->get['file_patch'];
+
+                $patch = DIR_MODIFICATION . $file_patch;
+            }
+            if ($file_patch && is_file($patch)) {
+                if (isset($this->request->post['code_cache'])) {
+                    $code_cache = html_entity_decode($this->request->post['code_cache']);
+
+                    $result = file_put_contents($patch, $code_cache);
+
+                    if ($result === false) {
+                        $json['error'] = $this->language->get('error_filewrite');
+                    } else {
+                        $json['success'] = sprintf($this->language->get('text_success_edit'), DIR_MODIFICATION . $file_patch);
+                    }
+                } else {
+                    $json['error'] = $this->language->get('error_code');
+                }
+            } else {
+                $json['error'] = $this->language->get('error_file');
+            }
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
+
     private function validate() {
         if (!$this->user->hasPermission('modify', 'extension/modification/diff')) {
             $this->response->redirect($this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true));

@@ -168,7 +168,7 @@ class ControllerExtensionModificationFiles extends Controller {
                                 $result[$file][] = array(
                                     'code' => $dom->getElementsByTagName('code')->item(0)->textContent,
                                     'name' => $dom->getElementsByTagName('name')->item(0)->textContent,
-                                    'ocmod_zip_name' => (isset($this->model_extension_modification_editor->getExtensionInstallByExtensionInstallId($info_xml['extension_install_id'])['filename']))? $this->model_extension_modification_editor->getExtensionInstallByExtensionInstallId($info_xml['extension_install_id'])['filename'] : $this->language->get('no_file_presence'),
+                                    'ocmod_zip_name' => isset($info_xml['extension_install_id']) ? $this->model_extension_modification_editor->getExtensionInstallByExtensionInstallId($info_xml['extension_install_id'])['filename'] : $this->language->get('error_file_not_found'),
                                     'version' => $version,
                                     'author' => $author
                                 );

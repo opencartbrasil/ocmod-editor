@@ -14,7 +14,6 @@ $_['text_modifications']    = 'Modificações';
 $_['text_new']              = 'Nova modificação';
 $_['text_help_ocmod']       = '<strong>Ajuda:</strong><br><a href="https://github.com/opencart/opencart/wiki/Modification-System" target="_blank" rel="Manual do OCMOD">Clique aqui</a> para acessar o manual completo do Sistema de Modificações do OpenCart.';
 $_['text_xml_code']         = 'Código XML';
-$_['no_file_presence']      = 'Arquivo ocmod zip não encontrado!';
 
 // Button
 $_['button_log_error']      = 'Log de erros';
@@ -46,3 +45,4 @@ $_['error_code_used']       = 'O code utilizado já está em uso pela extensão 
 $_['error_xml']             = 'O código XML não é válido!';
 $_['error_file']            = 'O código XML não foi encontrado!';
 $_['error_headers']         = 'Erro: Os cabeçalhos já foram enviados!';
+$_['error_file_not_found']  = 'Arquivo ocmod.zip não encontrado!';

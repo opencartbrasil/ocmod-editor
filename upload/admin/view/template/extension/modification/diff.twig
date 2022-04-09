@@ -3,6 +3,7 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
+        <button type="button" id="button-save" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary" data-loading-text="{{ text_loading }}"><i class="fa fa-save"></i></button>
         <a href="{{ return }}" data-toggle="tooltip" title="{{ button_return }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
       </div>
       <h1>{{ heading_title }}</h1>
@@ -41,7 +42,39 @@
       mode: "ace/mode/php",
       theme: "ace/theme/chrome",
       left: { editable: false },
-      right: { editable: false }
+      right: { editable: true }
+    });
+
+    $('#button-save').on('click', function(){
+      $('.alert').remove();
+
+      $.ajax({
+        url: 'index.php?route=extension/modification/diff/save&user_token=' + getURLVar('user_token') + '&file_patch=' + getURLVar('file_patch'),
+        type: 'post',
+        dataType: 'json',
+        data: { file_patch: getURLVar('file_patch'), code_cache: aceDiffer.getEditors().right.getValue() },
+        cache: false,
+        beforeSend: function() {
+          $('#button-save').button('loading');
+        },
+        complete: function() {
+          $('#button-save').button('reset');
+        },
+        success: function(json) {
+          if (json['error']) {
+            $('.panel-default').before('<div class="alert alert-danger" role="alert">' + json['error'] + '</div>');
+          } else {
+            $('.panel-default').before('<div class="alert alert-warning" role="alert">' + json['success'] + '</div>');
+          }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+          alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+      });
+    });
+
+    $(document).ready(function() {
+      $('#flex-container').height(Math.max($(window).height() - 120, 800)); // minus 400 is to stay in the window
     });
   </script>
 </div>
