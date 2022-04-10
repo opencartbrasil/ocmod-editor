@@ -1,85 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <modification>
-  <name>OCMOD Editor for OpenCart 3.0.x</name>
-  <code>ocmod-editor</code>
-  <version>3.4.0</version>
-  <author>OpenCart Brasil</author>
-  <link>https://www.opencartbrasil.com.br</link>
-  <file path="admin/controller/startup/permission.php">
-    <operation>
-      <search><![CDATA[$extension = array(]]></search>
-      <add position="after"><![CDATA['extension/modification',]]></add>
-    </operation>
-  </file>
-  <file path="admin/controller/marketplace/modification.php">
-    <operation>
-      <search><![CDATA[public function index() {]]></search>
-      <add position="after"><![CDATA[
-        $this->load->model('extension/modification/editor');
+    <name>OCMOD Editor for OpenCart 3.0.x</name>
+    <code>ocmod-editor</code>
+    <version>3.4.0</version>
+    <author>OpenCart Brasil</author>
+    <link>https://www.opencartbrasil.com.br</link>
+    <file path="admin/controller/startup/permission.php">
+        <operation>
+            <search>
+                <![CDATA[$extension = array(]]>
+            </search>
+            <add position="after">
+                <![CDATA['extension/modification',]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/marketplace/modification.php">
+        <operation>
+            <search>
+                <![CDATA[public function index() {]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+                $this->load->model('extension/modification/editor');
 
-        if (!$this->user->hasPermission('modify', 'extension/modification/search')) {
-            $this->load->model('user/user_group');
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/editor');
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/editor');
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/error_log');
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/error_log');
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/files');
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/files');
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/diff');
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/diff');
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/search');
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/search');
-        }
-      ]]></add>
-    </operation>
-    <operation>
-      <search><![CDATA[$data['refresh'] = $this->url->link('marketplace/modification/refresh', 'user_token=' . $this->session->data['user_token'] . $url, true);]]></search>
-      <add position="before"><![CDATA[
-        $data['log_error'] = $this->url->link('extension/modification/error_log', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['files'] = $this->url->link('extension/modification/files', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['new'] = $this->url->link('extension/modification/editor', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['search'] = $this->url->link('extension/modification/search', 'user_token=' . $this->session->data['user_token'] . $url, true);
-      ]]></add>
-    </operation>
-    <operation>
-      <search><![CDATA[$data['modifications'][] = array(]]></search>
-      <add position="after"><![CDATA[
-        'edit' => $this->url->link('extension/modification/editor', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'], true),
-        'download' => $this->url->link('extension/modification/editor/download', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'], true),
-        'file_url' => isset($result['extension_install_id']) ? $this->model_extension_modification_editor->getExtensionInstallByExtensionInstallId($result['extension_install_id'])['filename'] : $this->language->get('file_not_found'),
-      ]]></add>
-    </operation>
-    <operation>
-      <search><![CDATA[public function index() {]]></search>
-      <add position="after"><![CDATA[$this->load->language('extension/modification/editor');]]></add>
-    </operation>
-    <operation>
-      <search index="1"><![CDATA[$this->response->redirect($this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'] . $url, true));]]></search>
-      <add position="replace"><![CDATA[
-        if (isset($this->request->get['modification_editor'])) {
-            echo $this->session->data['success'];
-            exit;
-        } else {
-            $this->response->redirect($this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'] . $url, true));
-        }
-      ]]></add>
-    </operation>
-  </file>
-  <file path="admin/view/template/marketplace/modification.twig">
-    <operation>
-      <search><![CDATA[<div class="pull-right">]]></search>
-      <add position="after"><![CDATA[<a href="{{ search }}" data-toggle="tooltip" title="{{ button_search }}" class="btn btn-default"><i class="fa fa-search"></i></a> <a href="{{ log_error }}" data-toggle="tooltip" title="{{ button_log_error }}" class="btn btn-default"><i class="fa fa-exclamation-triangle"></i></a> <a href="{{ files }}" data-toggle="tooltip" title="{{ button_files }}" class="btn btn-default"><i class="fa fa-list-alt"></i></a> <a href="{{ new }}" data-toggle="tooltip" title="{{ button_new }}" class="btn btn-primary"><i class="fa fa-plus"></i></a>]]></add>
-    </operation>
-    <operation>
-      <search><![CDATA[{% if not modification.enabled %}]]></search>
-      <add position="before"><![CDATA[
-        <a href="{{ modification.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-        <a href="{{ modification.download }}" data-toggle="tooltip" title="{{ button_download }}" class="btn btn-success"><i class="fa fa-cloud-download"></i></a>
-      ]]></add>
-    </operation>
-    <operation>
-      <search><![CDATA[<td class="text-left">{{ modification.name }}</td>]]></search>
-      <add position="replace"><![CDATA[<td class="text-left"><b>{{ modification.name }}</b><br><small><i>{{ modification.file_url }}</i></small></td>]]></add>
-    </operation>
-  </file>
+                if (!$this->user->hasPermission('modify', 'extension/modification/search')) {
+                    $this->load->model('user/user_group');
+                    $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/editor');
+                    $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/editor');
+                    $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/error_log');
+                    $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/error_log');
+                    $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/files');
+                    $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/files');
+                    $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/diff');
+                    $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/diff');
+                    $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/search');
+                    $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/search');
+                }
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['refresh'] = $this->url->link('marketplace/modification/refresh', 'user_token=' . $this->session->data['user_token'] . $url, true);]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+                $data['log_error'] = $this->url->link('extension/modification/error_log', 'user_token=' . $this->session->data['user_token'] . $url, true);
+                $data['files'] = $this->url->link('extension/modification/files', 'user_token=' . $this->session->data['user_token'] . $url, true);
+                $data['new'] = $this->url->link('extension/modification/editor', 'user_token=' . $this->session->data['user_token'] . $url, true);
+                $data['search'] = $this->url->link('extension/modification/search', 'user_token=' . $this->session->data['user_token'] . $url, true);
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['modifications'][] = array(]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+                'edit' => $this->url->link('extension/modification/editor', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'], true),
+                'download' => $this->url->link('extension/modification/editor/download', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'], true),
+                'file_url' => isset($result['extension_install_id']) ? $this->model_extension_modification_editor->getExtensionInstallByExtensionInstallId($result['extension_install_id'])['filename'] : $this->language->get('file_not_found'),
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[public function index() {]]>
+            </search>
+            <add position="after">
+                <![CDATA[$this->load->language('extension/modification/editor');]]>
+            </add>
+        </operation>
+        <operation>
+            <search index="1">
+                <![CDATA[$this->response->redirect($this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'] . $url, true));]]>
+            </search>
+            <add position="replace">
+                <![CDATA[
+                if (isset($this->request->get['modification_editor'])) {
+                    echo $this->session->data['success'];
+                    exit;
+                } else {
+                    $this->response->redirect($this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'] . $url, true));
+                }
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/view/template/marketplace/modification.twig">
+        <operation>
+            <search>
+                <![CDATA[<div class="pull-right">]]>
+            </search>
+            <add position="after">
+                <![CDATA[<a href="{{ search }}" data-toggle="tooltip" title="{{ button_search }}" class="btn btn-default"><i class="fa fa-search"></i></a> <a href="{{ log_error }}" data-toggle="tooltip" title="{{ button_log_error }}" class="btn btn-default"><i class="fa fa-exclamation-triangle"></i></a> <a href="{{ files }}" data-toggle="tooltip" title="{{ button_files }}" class="btn btn-default"><i class="fa fa-list-alt"></i></a> <a href="{{ new }}" data-toggle="tooltip" title="{{ button_new }}" class="btn btn-primary"><i class="fa fa-plus"></i></a>]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[{% if not modification.enabled %}]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+                <a href="{{ modification.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                <a href="{{ modification.download }}" data-toggle="tooltip" title="{{ button_download }}" class="btn btn-success"><i class="fa fa-cloud-download"></i></a>
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[<td class="text-left">{{ modification.name }}</td>]]>
+            </search>
+            <add position="replace">
+                <![CDATA[<td class="text-left"><b>{{ modification.name }}</b><br><small><i>{{ modification.file_url }}</i></small></td>]]>
+            </add>
+        </operation>
+    </file>
 </modification>
