@@ -66,16 +66,19 @@ class ControllerExtensionModificationFiles extends Controller {
     private function getCacheFiles($directory, $length = 0) {
         $result = array();
 
-        if (!$length) { $length = strlen($directory); }
+        if (!$length) {
+            $length = strlen($directory);
+        }
 
         $files = glob(rtrim($directory, '/') . '/*');
+
         if (is_array($files)) {
             foreach($files as $file) {
                 if ($file == $directory . 'index.html') {
                     continue;
-                } else if (is_file($file)) {
+                } elseif (is_file($file)) {
                     $result[] = substr($file, $length);
-                } else if (is_dir($file)) {
+                } elseif (is_dir($file)) {
                     $result = array_merge($result, $this->getCacheFiles($file, $length));
                 }
             }
@@ -108,12 +111,17 @@ class ControllerExtensionModificationFiles extends Controller {
 
         foreach ($xml as $xml) {
 
-            $info_xml = [];
+            $info_xml = array();
 
-            if ($xml_array_count > 0) {$info_xml = $results[$xml_array_count - 1];}
+            if ($xml_array_count > 0) {
+                $info_xml = $results[$xml_array_count - 1];
+            }
+
             $xml_array_count++;
 
-            if (empty($xml)){ continue; }
+            if (empty($xml)) {
+                continue;
+            }
 
             $dom = new DOMDocument('1.0', 'UTF-8');
             $dom->preserveWhiteSpace = false;
@@ -130,9 +138,11 @@ class ControllerExtensionModificationFiles extends Controller {
                     if (substr($file, 0, 7) == 'catalog') {
                         $path = DIR_CATALOG . str_replace('../', '', substr($file, 8));
                     }
+
                     if (substr($file, 0, 5) == 'admin') {
                         $path = DIR_APPLICATION . str_replace('../', '', substr($file, 6));
                     }
+
                     if (substr($file, 0, 6) == 'system') {
                         $path = DIR_SYSTEM . str_replace('../', '', substr($file, 7));
                     }
@@ -144,9 +154,11 @@ class ControllerExtensionModificationFiles extends Controller {
                                 if (substr($file, 0, strlen(DIR_CATALOG)) == DIR_CATALOG) {
                                     $file = 'catalog/' . substr($file, strlen(DIR_CATALOG));
                                 }
+
                                 if (substr($file, 0, strlen(DIR_APPLICATION)) == DIR_APPLICATION) {
                                     $file = 'admin/' . substr($file, strlen(DIR_APPLICATION));
                                 }
+
                                 if (substr($file, 0, strlen(DIR_SYSTEM)) == DIR_SYSTEM) {
                                     $file = 'system/' . substr($file, strlen(DIR_SYSTEM));
                                 }

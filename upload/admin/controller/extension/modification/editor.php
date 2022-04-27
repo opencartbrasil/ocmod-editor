@@ -54,6 +54,7 @@ class ControllerExtensionModificationEditor extends Controller {
   </file>
 </modification>
 EOT;
+
             $data['xml'] = htmlentities($xml);
 
             $data['breadcrumbs'][] = array(
@@ -92,9 +93,13 @@ EOT;
             $file = $modification_info['xml'];
 
             ob_start();
+
             echo $file;
+
             $download = ob_get_contents();
+
             $size = ob_get_length();
+
             ob_end_clean();
 
             if (!headers_sent()) {
@@ -158,6 +163,7 @@ EOT;
 
                             if ($item) {
                                 $node = trim($item->nodeValue);
+
                                 if ($node) {
                                     $modification_data[$tag] = $node;
                                 } else {
@@ -171,6 +177,7 @@ EOT;
                         }
 
                         $file_tag = $dom->getElementsByTagName('file');
+
                         if ($file_tag->length == 0) {
                             $json['error'] = $this->language->get('error_file_tag');
                         }
@@ -188,6 +195,7 @@ EOT;
                                     if ($modification_info) {
                                         if ($modification_info['code'] == $modification_data['code']) {
                                             $this->model_extension_modification_editor->editModification($modification_id, $modification_data);
+
                                             $json['success'] = $this->language->get('text_success_edit');
                                         } else {
                                             $modification_info = $this->model_extension_modification_editor->getModificationByCode($modification_data['code']);
@@ -196,6 +204,7 @@ EOT;
                                                 $json['error'] = sprintf($this->language->get('error_code_used'), $modification_info['name']);
                                             } else {
                                                 $this->model_extension_modification_editor->editModification($modification_id, $modification_data);
+
                                                 $json['success'] = $this->language->get('text_success_edit');
                                             }
                                         }
@@ -209,6 +218,7 @@ EOT;
                                         $json['error'] = sprintf($this->language->get('error_code_used'), $modification_info['name']);
                                     } else {
                                         $this->model_extension_modification_editor->addModification($modification_data);
+
                                         $json['success'] = $this->language->get('text_success_add');
                                     }
                                 }
@@ -245,7 +255,10 @@ EOT;
         } else {
             $file = DIR_APPLICATION  . 'view/stylesheet/bootstrap.css';
 
-            if (is_file($file) && is_file(DIR_APPLICATION . 'view/stylesheet/sass/_bootstrap.scss')) {
+            if (
+                is_file($file)
+                && is_file(DIR_APPLICATION . 'view/stylesheet/sass/_bootstrap.scss')
+            ) {
                 unlink($file);
             }
 
@@ -293,6 +306,7 @@ EOT;
             $json['error'] = $this->language->get('error_permission');
         } else {
             $files = glob(DIR_CACHE . 'cache.*');
+
             if ($files) {
                 foreach ($files as $file) {
                     if (file_exists($file)) {
@@ -317,6 +331,7 @@ EOT;
             $json['error'] = $this->language->get('error_permission');
         } else {
             $this->delete_tree(DIR_IMAGE . 'cache/');
+
             @mkdir(DIR_IMAGE . 'cache/');
 
             $json['success'] = $this->language->get('text_erase_image');
@@ -328,8 +343,9 @@ EOT;
 
     private function delete_tree($dir) {
         $files = array_diff(scandir($dir), array('.','..'));
+
         foreach ($files as $file) {
-             (is_dir("$dir/$file")) ? $this->delete_tree("$dir/$file") : @unlink("$dir/$file");
+             is_dir("$dir/$file") ? $this->delete_tree("$dir/$file") : @unlink("$dir/$file");
         }
 
         return @rmdir($dir);
@@ -339,6 +355,7 @@ EOT;
         $this->validate();
 
         $maintenance = $this->config->get('config_maintenance');
+
         $this->load->model('setting/setting');
         $this->model_setting_setting->editSettingValue('config', 'config_maintenance', true);
 
@@ -375,6 +392,7 @@ EOT;
         }
 
         $xml = array();
+
         $xml[] = file_get_contents(DIR_SYSTEM . 'modification.xml');
 
         $files = glob(DIR_SYSTEM . '*.ocmod.xml');
@@ -387,6 +405,7 @@ EOT;
 
         $this->load->model('extension/modification/editor');
         $results = $this->model_extension_modification_editor->getModifications();
+
         foreach ($results as $result) {
             if ($result['status']) {
                 $xml[] = $result['xml'];
@@ -415,47 +434,61 @@ EOT;
             }
 
             $files = $dom->getElementsByTagName('modification')->item(0)->getElementsByTagName('file');
+
             foreach ($files as $file) {
                 $operations = $file->getElementsByTagName('operation');
 
                 $error_file = $file->getAttribute('error');
 
                 $files = explode('|', $file->getAttribute('path'));
+
                 foreach ($files as $file) {
                     $path = '';
+
                     if (substr($file, 0, 7) == 'catalog') {
                         $path = DIR_CATALOG . substr($file, 8);
                     }
+
                     if (substr($file, 0, 5) == 'admin') {
                         $path = DIR_APPLICATION . substr($file, 6);
                     }
+
                     if (substr($file, 0, 6) == 'system') {
                         $path = DIR_SYSTEM . substr($file, 7);
                     }
+
                     if ($path) {
                         $files = glob($path, GLOB_BRACE);
+
                         if ($files) {
                             foreach ($files as $file) {
                                 if (substr($file, 0, strlen(DIR_CATALOG)) == DIR_CATALOG) {
                                     $key = 'catalog/' . substr($file, strlen(DIR_CATALOG));
                                 }
+
                                 if (substr($file, 0, strlen(DIR_APPLICATION)) == DIR_APPLICATION) {
                                     $key = 'admin/' . substr($file, strlen(DIR_APPLICATION));
                                 }
+
                                 if (substr($file, 0, strlen(DIR_SYSTEM)) == DIR_SYSTEM) {
                                     $key = 'system/' . substr($file, strlen(DIR_SYSTEM));
                                 }
+
                                 if (!isset($modification[$key])) {
                                     $content = file_get_contents($file);
+
                                     $modification[$key] = preg_replace('~\r?\n~', "\n", $content);
+
                                     $original[$key] = preg_replace('~\r?\n~', "\n", $content);
 
                                     $log[] = PHP_EOL . 'FILE: ' . $key;
                                 }
+
                                 foreach ($operations as $operation) {
                                     $error = $operation->getAttribute('error');
 
                                     $ignoreif = $operation->getElementsByTagName('ignoreif')->item(0);
+
                                     if ($ignoreif) {
                                         if ($ignoreif->getAttribute('regex') != 'true') {
                                             if (strpos($modification[$key], $ignoreif->textContent) !== false) {
@@ -501,16 +534,21 @@ EOT;
                                         }
 
                                         $i = 0;
+
                                         $lines = explode("\n", $modification[$key]);
+
                                         for ($line_id = 0; $line_id < count($lines); $line_id++) {
                                             $line = $lines[$line_id];
+
                                             $match = false;
+
                                             if (stripos($line, $search) !== false) {
                                                 if (!$indexes) {
                                                     $match = true;
                                                 } elseif (in_array($i, $indexes)) {
                                                     $match = true;
                                                 }
+
                                                 $i++;
                                             }
 
@@ -522,24 +560,33 @@ EOT;
 
                                                         if ($offset < 0) {
                                                             array_splice($lines, $line_id + $offset, abs($offset) + 1, array(str_replace($search, $add, $line)));
+
                                                             $line_id -= $offset;
                                                         } else {
                                                             array_splice($lines, $line_id, $offset + 1, array(str_replace($search, $add, $line)));
                                                         }
+
                                                         break;
                                                     case 'before':
                                                         $new_lines = explode("\n", $add);
+
                                                         array_splice($lines, $line_id - $offset, 0, $new_lines);
+
                                                         $line_id += count($new_lines);
+
                                                         break;
                                                     case 'after':
                                                         $new_lines = explode("\n", $add);
+
                                                         array_splice($lines, ($line_id + 1) + $offset, 0, $new_lines);
+
                                                         $line_id += count($new_lines);
+
                                                         break;
                                                 }
 
                                                 $log[] = 'LINE: ' . $line_id;
+
                                                 $status = true;
                                             }
                                         }
@@ -555,6 +602,7 @@ EOT;
                                         }
 
                                         $match = array();
+
                                         preg_match_all($search, $modification[$key], $match, PREG_OFFSET_CAPTURE);
 
                                         if ($limit > 0) {
@@ -563,9 +611,11 @@ EOT;
 
                                         if ($match[0]) {
                                             $log[] = 'REGEX: ' . $search;
+
                                             for ($i = 0; $i < count($match[0]); $i++) {
                                                 $log[] = 'LINE: ' . (substr_count(substr($modification[$key], 0, $match[0][$i][1]), "\n") + 1);
                                             }
+
                                             $status = true;
                                         }
 
@@ -582,14 +632,18 @@ EOT;
 
                                         if ($error == 'abort') {
                                             $modification = $recovery;
+
                                             $log[] = 'NOT FOUND - ABORTING!';
+
                                             break 5;
                                         } elseif ($error == 'skip') {
                                             $log[] = 'NOT FOUND - OPERATION SKIPPED!';
+
                                             continue;
                                         } else {
                                             $log[] = 'NOT FOUND - OPERATIONS ABORTED!';
-                                             break;
+
+                                            break;
                                         }
                                     }
                                 }
@@ -609,29 +663,37 @@ EOT;
         }
 
         $ocmod = new Log('ocmod.log');
+
         $ocmod->write(implode("\n", $log));
 
         $log_error_path = DIR_LOGS . 'error_ocmod.log';
+
         if (file_exists($log_error_path)) {
             @unlink($log_error_path);
         }
 
         if ($log_error) {
             $ocmod = new Log('error_ocmod.log');
+
             $ocmod->write(implode("\n", $log_error));
         }
 
         foreach ($modification as $key => $value) {
             if ($original[$key] != $value) {
                 $path = '';
+
                 $directories = explode('/', dirname($key));
+
                 foreach ($directories as $directory) {
                     $path = $path . '/' . $directory;
+
                     if (!is_dir(DIR_MODIFICATION . $path)) {
                         @mkdir(DIR_MODIFICATION . $path, 0777);
                     }
                 }
+
                 $handle = fopen(DIR_MODIFICATION . $key, 'w');
+
                 fwrite($handle, $value);
                 fclose($handle);
             }

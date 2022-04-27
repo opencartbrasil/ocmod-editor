@@ -30,14 +30,21 @@ class ControllerExtensionModificationDiff extends Controller {
                 $data['file_patch'] = $file_patch;
 
                 ob_start();
+
                 readfile($patch);
+
                 $data['code_cache'] = htmlentities(ob_get_contents());
+
                 ob_end_clean();
 
                 $dir = str_replace('\\', '/', realpath(DIR_APPLICATION . '../')) . '/';
+
                 ob_start();
+
                 readfile($dir . $file_patch);
+
                 $data['code_original'] = htmlentities(ob_get_contents());
+
                 ob_end_clean();
 
                 $data['breadcrumbs'][] = array(
@@ -77,6 +84,7 @@ class ControllerExtensionModificationDiff extends Controller {
 
                 $patch = DIR_MODIFICATION . $file_patch;
             }
+
             if ($file_patch && is_file($patch)) {
                 if (isset($this->request->post['code_cache'])) {
                     $code_cache = html_entity_decode($this->request->post['code_cache']);

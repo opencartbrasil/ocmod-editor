@@ -35,6 +35,7 @@ class ModelExtensionModificationEditor extends Model {
 
         if (!empty($data['search_query'])) {
             $query_search = htmlspecialchars_decode($data['search_query']);
+
             $search_exploded = explode ( " ", $query_search );
 
             foreach( $search_exploded as $search_each ) {
@@ -58,6 +59,7 @@ class ModelExtensionModificationEditor extends Model {
 
         if (!empty($data['search_query'])) {
             $query_search = htmlspecialchars_decode($data['search_query']);
+
             $search_exploded = explode(" ", $query_search);
 
             foreach( $search_exploded as $search_each ) {
@@ -77,19 +79,28 @@ class ModelExtensionModificationEditor extends Model {
             'date_added'
         );
 
-        if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
+        if (
+            isset($data['sort'])
+            && in_array($data['sort'], $sort_data)
+        ) {
             $sql .= " ORDER BY " . $data['sort'];
         } else {
             $sql .= " ORDER BY name";
         }
 
-        if (isset($data['order']) && ($data['order'] == 'DESC')) {
+        if (
+            isset($data['order'])
+            && ($data['order'] == 'DESC')
+        ) {
             $sql .= " DESC";
         } else {
             $sql .= " ASC";
         }
 
-        if (isset($data['start']) || isset($data['limit'])) {
+        if (
+            isset($data['start'])
+            || isset($data['limit'])
+        ) {
             if ($data['start'] < 0) {
                 $data['start'] = 0;
             }
