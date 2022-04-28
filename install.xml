@@ -61,7 +61,7 @@
                 <![CDATA[
                 'edit' => $this->url->link('extension/modification/editor', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'], true),
                 'download' => $this->url->link('extension/modification/editor/download', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'], true),
-                'file_url' => isset($result['extension_install_id']) ? $this->model_extension_modification_editor->getExtensionInstallByExtensionInstallId($result['extension_install_id'])['filename'] : '',
+                'file_url' => isset($result['extension_install_id']) ? $this->model_extension_modification_editor->getExtensionInstallByExtensionInstallId($result['extension_install_id']) : '',
                 ]]>
             </add>
         </operation>
