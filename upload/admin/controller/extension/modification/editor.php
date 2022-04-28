@@ -272,7 +272,11 @@ EOT;
                 }
             }
 
-            $directories = glob(DIR_CACHE . '*', GLOB_ONLYDIR);
+            if (version_compare(VERSION, '3.0.4') < 0) {
+                $directories = glob(DIR_CACHE . '*', GLOB_ONLYDIR);
+            } else {
+                $directories = glob(DIR_CACHE . '/template/*', GLOB_ONLYDIR);
+            }
 
             if ($directories) {
                 foreach ($directories as $directory) {
