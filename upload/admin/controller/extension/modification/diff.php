@@ -19,6 +19,11 @@ class ControllerExtensionModificationDiff extends Controller {
             'href' => $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true)
         );
 
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('text_modified_files'),
+            'href' => $this->url->link('extension/modification/files', 'user_token=' . $this->session->data['user_token'], true)
+        );
+
         $this->document->addStyle('view/javascript/ace/diff.min.css');
         $this->document->addScript('view/javascript/ace/diff-patch.min.js');
 
