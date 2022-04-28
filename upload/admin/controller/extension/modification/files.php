@@ -90,13 +90,21 @@ class ControllerExtensionModificationFiles extends Controller {
     private function getXmlFiles() {
         $result = array();
 
-        $xml = array();
-        $xml[] = file_get_contents(DIR_SYSTEM . 'modification.xml');
+        $mods = array();
+
+        $mods[] = array(
+            'extension_install_id' => '',
+            'xml' => file_get_contents(DIR_SYSTEM . 'modification.xml')
+        );
 
         $files = glob(DIR_SYSTEM . '*.ocmod.xml');
+
         if ($files) {
             foreach ($files as $file) {
-                $xml[] = file_get_contents($file);
+                $mods[] = array(
+                    'extension_install_id' => '',
+                    'xml' => file_get_contents($file)
+                );
             }
         }
 
@@ -104,28 +112,22 @@ class ControllerExtensionModificationFiles extends Controller {
         $results = $this->model_extension_modification_editor->getModifications();
 
         foreach ($results as $result) {
-            $xml[] = $result['xml'];
+            $extension_install_id = isset($result['extension_install_id']) ? $result['extension_install_id'] : '';
+
+            $mods[] = array(
+                'extension_install_id' => $extension_install_id,
+                'xml' => $result['xml']
+            );
         }
 
-        $xml_array_count = 0; // not 0 because the first is system modification
-
-        foreach ($xml as $xml) {
-
-            $info_xml = array();
-
-            if ($xml_array_count > 0) {
-                $info_xml = $results[$xml_array_count - 1];
-            }
-
-            $xml_array_count++;
-
-            if (empty($xml)) {
+        foreach ($mods as $mod) {
+            if (empty($mod['xml'])) {
                 continue;
             }
 
             $dom = new DOMDocument('1.0', 'UTF-8');
             $dom->preserveWhiteSpace = false;
-            $dom->loadXml($xml);
+            $dom->loadXml($mod['xml']);
 
             $files = $dom->getElementsByTagName('modification')->item(0)->getElementsByTagName('file');
             foreach ($files as $file) {
@@ -149,6 +151,7 @@ class ControllerExtensionModificationFiles extends Controller {
 
                     if ($path) {
                         $files = glob($path, GLOB_BRACE);
+
                         if ($files) {
                             foreach ($files as $file) {
                                 if (substr($file, 0, strlen(DIR_CATALOG)) == DIR_CATALOG) {
@@ -163,7 +166,9 @@ class ControllerExtensionModificationFiles extends Controller {
                                     $file = 'system/' . substr($file, strlen(DIR_SYSTEM));
                                 }
 
-                                if (!isset($result[$file])) { $result[$file] = array(); }
+                                if (!isset($result[$file])) {
+                                    $result[$file] = array();
+                                }
 
                                 if ($dom->getElementsByTagName('version')->length) {
                                     $version = $dom->getElementsByTagName('version')->item(0)->textContent;
@@ -180,7 +185,7 @@ class ControllerExtensionModificationFiles extends Controller {
                                 $result[$file][] = array(
                                     'code' => $dom->getElementsByTagName('code')->item(0)->textContent,
                                     'name' => $dom->getElementsByTagName('name')->item(0)->textContent,
-                                    'ocmod_zip_name' => isset($info_xml['extension_install_id']) ? $this->model_extension_modification_editor->getExtensionInstallByExtensionInstallId($info_xml['extension_install_id'])['filename'] : $this->language->get('error_file_not_found'),
+                                    'ocmod_zip_name' => !empty($mod['extension_install_id']) ? $this->model_extension_modification_editor->getExtensionInstallByExtensionInstallId($mod['extension_install_id'])['filename'] : $this->language->get('error_file_not_found'),
                                     'version' => $version,
                                     'author' => $author
                                 );
@@ -198,6 +203,7 @@ class ControllerExtensionModificationFiles extends Controller {
         $result = array();
 
         $cache_files = $this->getCacheFiles(DIR_MODIFICATION);
+
         $xml_files = $this->getXmlFiles();
 
         foreach($cache_files as $cache_file) {

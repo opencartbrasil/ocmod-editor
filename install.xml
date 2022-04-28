@@ -2,7 +2,7 @@
 <modification>
     <name>OCMOD Editor for OpenCart 3.0.x</name>
     <code>ocmod-editor</code>
-    <version>3.4.0</version>
+    <version>3.4.1</version>
     <author>OpenCart Brasil</author>
     <link>https://www.opencartbrasil.com.br</link>
     <file path="admin/controller/startup/permission.php">
@@ -61,7 +61,7 @@
                 <![CDATA[
                 'edit' => $this->url->link('extension/modification/editor', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'], true),
                 'download' => $this->url->link('extension/modification/editor/download', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'], true),
-                'file_url' => isset($result['extension_install_id']) ? $this->model_extension_modification_editor->getExtensionInstallByExtensionInstallId($result['extension_install_id'])['filename'] : $this->language->get('file_not_found'),
+                'file_url' => isset($result['extension_install_id']) ? $this->model_extension_modification_editor->getExtensionInstallByExtensionInstallId($result['extension_install_id'])['filename'] : '',
                 ]]>
             </add>
         </operation>
