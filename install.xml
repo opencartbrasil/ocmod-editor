@@ -25,6 +25,7 @@
                 $this->load->model('extension/modification/editor');
 
                 if (!$this->user->hasPermission('modify', 'extension/modification/search')) {
+                    /*
                     $this->load->model('user/user_group');
                     $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/editor');
                     $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/editor');
@@ -36,6 +37,8 @@
                     $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/diff');
                     $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/search');
                     $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/search');
+                    */
+                    // demo demo get permanent permission for edit ocmod. haha its a shit bag
                 }
                 ]]>
             </add>
