@@ -38,7 +38,6 @@
                     $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/modification/search');
                     $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/modification/search');
                     */
-                    // demo demo get permanent permission for edit ocmod. haha its a shit bag
                 }
                 ]]>
             </add>
